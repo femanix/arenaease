@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Comanda:</strong>
+  <%= @invoice.comanda_id %>
+</p>
+
+<p>
+  <strong>Nota chave:</strong>
+  <%= @invoice.nota_chave %>
+</p>
+
+<p>
+  <strong>Nota numero:</strong>
+  <%= @invoice.nota_numero %>
+</p>
+
+<p>
+  <strong>Valor:</strong>
+  <%= @invoice.valor_cents %>
+</p>
+
+<%= link_to 'Edit', edit_invoice_path(@invoice) %> |
+<%= link_to 'Back', invoices_path %>

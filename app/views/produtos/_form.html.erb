@@ -1,0 +1,94 @@
+<%= stylesheet_link_tag 'produtos' %>
+<%= form_with(model: produto, local: true) do |form| %>
+  <% if produto.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(produto.errors.count, "error") %>
+        prohibited this produto from being saved:</h2>
+
+      <ul>
+        <% produto.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <fieldset class="fieldset-border">
+    <legend class="legend-border">Dados cadastrais</legend>
+    <div class="field form-group nomeProduto">
+      <%= form.label :descricao, class: 'control-label' %>
+      <%= form.text_field :descricao, class: 'form-control' %>
+    </div>
+    <div class="field form-group categoria">
+      <%= form.label :categoria, class: 'control-label' %>
+      <%= form.select :categoria, Produto.categoria.map { |k, v| [k,k]},{}, {class: 'form-control'}   %>
+    </div>
+  </fieldset>
+
+  <fieldset class="fieldset-border precificacao">
+    <legend class="legend-border">Precificação</legend>
+    <div class="field form-group">
+
+      <%= form.label :preco_compra_cents, class: 'control-label' %>
+      <div class="input-group">
+        <span class="input-group-addon">R$</span>
+        <%= form.text_field :preco_compra, :onkeyup =>'maskPrice(this)', class: 'form-control', placeholder: '10,00' %>
+      </div>
+    </div>
+
+    <div class="field form-group">
+      <%= form.label :preco_venda_cents, class: 'control-label' %>
+      <div class="input-group">
+        <span class="input-group-addon">R$</span>
+        <%= form.text_field :preco_venda, :onkeyup =>'maskPrice(this)', class: 'form-control', placeholder: '10,00'  %>
+      </div>
+    </div>
+
+    <div class="field form-group">
+      <%= form.label :data_validade, class: 'control-label' %>
+      <%= form.date_field :data_validade, class: 'form-control' %>
+    </div>
+
+    <div class="field form-group">
+      <%= form.label 'Fornecedor', class: 'control-label' %>
+      <%= form.select(:supplier_id, @suppliers.collect { |s| [ s.description, s.id ] }, {}, class: ' selectize-fornecedor')%>
+    </div>
+  </fieldset>
+
+  <fieldset class="fieldset-border informacoesGerais">
+    <legend class="legend-border">Informações Gerais</legend>
+
+    <div class="field form-group">
+      <%= form.label 'Quantidade Mínima', class: 'control-label' %>
+      <%= form.number_field :quantidade_minima, class: 'form-control' %>
+    </div>
+
+    <div class="field form-group">
+      <%= form.label :unidade, class: 'control-label' %>
+      <%= form.select(:unidade, ['cx','un','pct'],{}, class: 'form-control') %>
+    </div>
+
+    <div class="field form-group">
+      <%= form.label 'Itens por Caixa', class: 'control-label' %>
+      <%= form.number_field :itens_cx, class: 'form-control' %>
+    </div>
+
+    <div class="field form-group divCodigo">
+      <%= form.label 'Código de Barras', class: 'control-label' %>
+      <%= form.number_field :ncm, class: 'form-control' %>
+    </div>
+  </fieldset>
+  <fieldset class="fieldset-border informacoesGerais">
+    <legend class="legend-border">Tributação</legend>
+    <div id="tributo">
+    <%= form.fields_for :tributo, produto.tributo do |tributo_form| %> 
+      <%= render partial: "tributo_fields", locals: { f: tributo_form} %>
+      <% end %>
+    </div>
+  </fieldset>
+
+  <div class="modal-footer">
+    <div class="actions">
+      <%= form.submit 'Salvar novo Produto', class: 'btn btn-round btn-success' %>
+    </div>
+  </div>
+<% end %>

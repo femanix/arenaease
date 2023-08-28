@@ -1,0 +1,95 @@
+<%= stylesheet_link_tag 'alunos' %>
+<div class="col-md-12">
+  <div class="x_panel">
+    <% if params[:term].present? %>
+      <%= link_to  alunos_list_path(params[:m]), class:"btn btn-danger navbar-right" do %>
+        <i class="fa fa-undo"></i>
+        Limpar Pesquisa
+      <% end %>
+    <% else %>
+      <%= form_with url: alunos_list_path(params[:m]), local: true, class:"navbar-form navbar-right", method: :get do |form| %>
+        <div class="form-group">
+          <%= form.text_field :term, class:"form-control", placeholder:"Matrícula, Nome" %>
+        </div>
+        <button type="submit" class="btn btn-default btnPesquisar">Pesquisar</button>
+      <% end %>
+    <% end %>
+    <div class="x_title">
+      <h1>Alunos</h1>
+    </div>
+    <div class="x_content">
+      <p id="notice"><%= notice %></p>
+      <%= link_to "Exportar CSV", alunos_list_path(m: params[:m],format:"csv"), class: "btn btn-primary" %>
+      <table class="table table-bordered table-striped">
+        <thead>
+          <tr>
+            <th>Nome</th>
+            <th>Data de Nascimento</th>
+            <th>Telefone</th>
+            <th>Plano</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @alunos.each do |aluno| %>
+            <tr>
+              <td><%= aluno.nome %></td>
+              <td class="text-center"><%= date_format(aluno.data_nascimento) %></td>
+              <td class="text-nowrap"><%= phone_format(aluno.telefone1) %></td>
+              <td class="text-nowrap"><%= aluno.plano %></td>
+              <td class="actionsForm">
+                <% if !aluno.matriculado? %>
+                  <%= link_to  matricular_aluno_path(aluno.id, m: params[:m]),  {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#matricularModal', class: 'btn btn-round btn-success btn-xs'} do %>
+                    <i class="fa fa-th-list"></i>
+                    Matricular
+                  <% end %>
+                <% else %>
+                  <%= link_to  gerar_contrato_path(aluno.id),  {:remote => false, class: 'btn btn-round btn-info btn-xs', :target => '_blank'} do %>
+                    <i class="fa fa-th-list"></i>
+                    Imprimir Contrato
+                  <% end %>
+                <% end %>
+                <%= link_to mensalidades_aluno_list_path(m: params[:m], id: aluno.id), class: 'btn btn-round btn-success btn-xs' do %>
+                  <i class="fa fa-eye"></i>
+                  Exibir Mensalidades
+                <% end %>
+                <%=link_to edit_aluno_path(aluno, m: params[:m]),class: 'btn btn-round btn-primary btn-xs' do %>
+                  <i class="fa fa-edit"></i>
+                  Editar
+                <% end %>
+                <%= link_to aluno, method: :delete, data: { confirm: 'Are you sure?' }, class:'btn btn-round btn-danger btn-xs disabled' do %>
+                  <i class="fa fa-trash-o"></i>
+                  Inativar
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+
+      <br>
+
+        <%= link_to novo_aluno_chute_inicial_path(m: params[:m]), class: 'btn btn-round btn-success' do %>
+          Adicionar Aluno
+        <% end %>
+      </div>
+    </div>
+    <div class='paginacao'>
+      <%= paginate @alunos %>
+    </div>
+  </div>
+
+  <div class="modal fade" id="matricularModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h4 class="modal-title" id="myModalLabel">Matricular</h4>
+        </div>
+        <div class="modal-body"></div>
+      </div>
+    </div>
+  </div>

@@ -1,0 +1,35 @@
+  <div class="col-md-12">
+    <div class="x_panel">
+      <div class="x_title">
+        <h1>Entradas de Estoque</h1>
+      </div>
+      <div class="x_content">
+        <table class="table table-striped table-bordered no-footer dtr-inline collapsed">
+          <thead>
+            <tr>
+              <th>Data</th>
+              <th>Produto</th>
+              <th>Quantidade</th>
+              <th>Preço Compra</th>
+              <th>Usuário</th>
+              <th>Fornecedor</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <% @estoque_ins.each do |estoque_in| %>
+              <tr>
+                <td><%= date_format(estoque_in.created_at) %></td>
+                <td><%= estoque_in.produto.descricao %></td>
+                <td><%= estoque_in.quantidade %></td>
+                <td><%= estoque_in.preco_compra.format %></td>
+                <td><%= estoque_in.user.user_name %></td>
+                <td><%= estoque_in.supplier.description %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+
+      </div>
+    </div>
+  </div>

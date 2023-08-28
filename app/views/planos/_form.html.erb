@@ -1,0 +1,28 @@
+<%= javascript_include_tag 'planos', 'data-turbolinks-track': 'reload' %>
+<%= form_with(model: plano, local: true) do |form| %>
+            <fieldset class="fieldset-border fieldsetCenter">
+              <legend class="legend-border">Planos</legend>
+            <div class="formulario">
+              <div class="field">
+                <%= form.label 'Descrição' %>
+                <%= form.text_field :descricao , class: 'form-control'%>
+              </div>
+              <div class="field">
+                <%= form.label :modalidade %>
+                <div class="selectModalidade">
+                  <%= form.select(:modalidade_id, @modalidades.collect { |m| [ m.descricao, m.id ] }, {}, class: 'selectize')%>
+                </div>
+              </div>
+              <div class="field">
+                <%= form.label 'Mensalidade' %>
+                <div class="input-group">
+                  <span class="input-group-addon">R$</span>
+                  <%= form.text_field :valor, class: 'form-control' , :onkeyup =>'maskPrice(this)', placeholder: '10,00'%>
+                </div>   
+              </div>
+              <div class="buttonPlanos">
+                <%= form.submit 'Enviar' , class: 'btn btn-round btn-success' %>
+              </div>
+            </div>
+            </fieldset>
+          <% end %>

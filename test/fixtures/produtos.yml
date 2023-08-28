@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  produto: MyString
+  valor: 9.99
+  ncm: 1
+  quantidade_minima: 1
+
+two:
+  produto: MyString
+  valor: 9.99
+  ncm: 1
+  quantidade_minima: 1

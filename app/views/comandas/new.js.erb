@@ -1,0 +1,13 @@
+<% if params[:balcao] %>
+  $("#editModal").find(".modal-body").html("<%= j render(:partial => 'balcao', :locals => {:comanda => @comanda}) %>");
+  $("#editModal").find(".modal-title").html("Venda Balcão");
+  <%= puts "if" %>
+
+<% else %>
+  $("#editModal").find(".modal-body").html("<%= j render(:partial => 'form', :locals => {:comanda => @comanda}) %>");
+  $("#editModal").find(".modal-title").html("Nova Comanda");
+  <%= puts "ELSE" %>
+
+<% end %>
+
+  $("#editModal").modal('show');

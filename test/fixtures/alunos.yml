@@ -1,0 +1,31 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  nome: MyText
+  data_nascimento: 2022-12-22
+  rg: 1
+  cpf: 1
+  cep: 1
+  numero: 1
+  matricula: one
+  telefone1: 1
+  telefone2: 1
+  telefone3: 1
+  responsavel1: MyText
+  responsavel2: MyText
+  modalidade: one
+
+two:
+  nome: MyText
+  data_nascimento: 2022-12-22
+  rg: 1
+  cpf: 1
+  cep: 1
+  numero: 1
+  matricula: two
+  telefone1: 1
+  telefone2: 1
+  telefone3: 1
+  responsavel1: MyText
+  responsavel2: MyText
+  modalidade: two

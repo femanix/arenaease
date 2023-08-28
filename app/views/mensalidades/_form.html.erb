@@ -1,0 +1,34 @@
+<%= stylesheet_link_tag 'mensalidades' %>
+<%= form_with(url: pagar_mensalidade_path(@mensalidade.id), local: true, method: :post) do |form| %>
+
+  <fieldset class="fieldset-border">
+    <legend class="legend-border">Pagar mensalidade</legend>
+
+    <div class="pagamentoInfo">
+      <div class="field">
+        <%= form.label :vencimento %>
+        <%= date_field :mensalidade, :vencimento, value: @mensalidade.vencimento,class: 'form-control' %>
+      </div>
+      <div class="field">
+        <%= form.label :data_pagamento %>
+        <%= date_field :mensalidade, :data_pagamento, value: @mensalidade.data_pagamento,class: 'form-control', required: true %>
+      </div>
+      <div class="field formValor">
+        <%= form.label :value %>
+        <div class="input-group">
+          <span class="input-group-addon">R$</span>
+          <%= text_field :mensalidade, :value, value: @mensalidade.value,:onkeyup =>'maskPrice(this)', class: 'form-control' %>
+        </div>
+      </div>
+      <div class="field ">
+        <% form.label :paid, class:'pago' %>
+        <% check_box :mensalidade, :status, {value: 'Pago'}, 'Pago', 'Em aberto' %>
+        <%= hidden_field :mensalidade, :status, value: 'Pago' %>
+        <%= hidden_field :mensalidade, :modalidade, value: params[:m] %>
+      </div>
+    </div>
+    <div class="botaoPagar">
+      <%= form.submit "Pagar mensalidade" , class: 'btn btn-round btn-success' %>
+    </div>
+  </fieldset>
+<% end %>

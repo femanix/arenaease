@@ -1,0 +1,53 @@
+<div class="row">
+  <div class="row">
+    <%= link_to comandas_path+"?status=abertas" do %>
+      <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <div class="tile-stats">
+          <div class="icon">
+            <i class="fa fa-shopping-cart"></i>
+          </div>
+          <div class="count"><%= comandas_status('abertas').size %></div>
+
+          <h3>Em aberto</h3>
+          <p>Comandas que ainda não foram pagas.</p>
+        </div>
+      </div>
+    <% end %>
+    <%= link_to comandas_path+"?status=encerradas" do %>
+    <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+      <div class="tile-stats">
+        <div class="icon">
+          <i class="fa fa-money"></i>
+        </div>
+        <div class="count"><%= comandas_status('encerradas').size %></div>
+
+        <h3>Encerradas</h3>
+        <p>Comandas que foram pagas e encerradas.</p>
+      </div>
+    </div>
+    <% end %>
+    <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+      <div class="tile-stats">
+        <div class="icon">
+          <i class="fa fa-sort-amount-desc"></i>
+        </div>
+        <div class="count">-</div>
+
+        <h3>Fora do Período</h3>
+        <p>Comandas não pagas fora do período.</p>
+      </div>
+    </div>
+    <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+      <div class="tile-stats">
+        <div class="icon">
+          <i class="fa fa-file-text-o"></i>
+        </div>
+        <div class="count"><%= Invoice.all.size %></div>
+
+        <h3>Notas Emitidas</h3>
+        <p>Comandas que foram pagas e tiveram a NF-e emitida.</p>
+      </div>
+    </div>
+  </div>
+  <hr>
+</div>

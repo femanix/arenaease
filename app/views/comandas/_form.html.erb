@@ -1,0 +1,41 @@
+<%= stylesheet_link_tag 'comandas' %>
+<%= form_with(model: comanda, local: true, class: 'form-horizontal form-label-left') do |form| %>
+  <% if comanda.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(comanda.errors.count, "error") %> prohibited this comanda from being saved:</h2>
+
+      <ul>
+      <% comanda.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group clienteObservacao">
+      <%= form.label :cliente_id, class: 'control-label'%>:
+      <%= form.select(:cliente_id,  @clientes.collect { |c| [ c.nome_cliente, c.id ] }, { include_blank: "Selecione um Cliente"}, class:'clienteObservacaoSelect selectize ') %>
+      <%= form.label :observacao, class: 'control-label' %>:
+      <%= form.text_field :observacao , class:'form-control clienteObservacaoInput'%>
+  </div>
+
+  <hr />
+
+  <div id="itens_comandas">
+    <%= form.fields_for :itens_comandas do |itens_comanda|%>
+      <%= render partial: "itens_comanda_fields", locals: { f: itens_comanda} %>
+    <% end %>
+    <div class='adicionarItem'>
+      <%= link_to_add_association 'Adicionar Item', form, :itens_comandas, :class => 'btn btn-success btnAdicionar' %>
+    </div>
+  </div>
+  
+  <div class="btnSalvar">    
+    <%= form.submit 'Salvar Comanda',class:'btn btn-primary'%>
+  </div>  
+  <div class="form-group valorTotal">
+    <%= form.label :valor_total, class: 'control-label labelValor' %>
+    <%= comanda.valor_total_cents %>
+  </div>
+   
+<% end %>

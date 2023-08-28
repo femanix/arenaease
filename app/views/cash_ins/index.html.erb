@@ -1,0 +1,94 @@
+<%= stylesheet_link_tag 'cash_ins' %>
+<%= javascript_include_tag 'cash_ins' %>
+<div class="col-md-12">
+  <div class="x_panel">
+    <div class="x_title">
+      <h1>Receitas</h1>
+    </div>
+    <div class="x_content">
+      <p id="notice"><%= notice %></p>
+      <%= link_to "Exportar CSV", cash_ins_path(format: "csv"), class: "btn btn-primary" %>
+      <%= search_form_for @q, class:"navbar-form navbar-right navbarMenu" do |f| %>
+        <div class="form-group">
+          <%= f.select :origin_eq,getOrigins.collect{ |c|  [c.origin, c.origin, {selected: c.origin == params[:origin]}] },{include_blank: 'Selecione uma categoria'}, class:"form-control" %>
+        </div>
+        <p>De:</p>
+        <div class="form-group">
+          <%= f.date_field :date_gteq, class:"form-control" %>
+        </div>
+        <p>Até:</p>
+        <div class="form-group">
+          <%= f.date_field :date_lteq, class:"form-control" %>
+          <%= f.text_field :description_cont, class:"form-control" %>
+        </div>
+        <div class="form-group">
+          <%= f.submit 'Pesquisar', class:"btn btn-default btnPesquisar" %>
+        </div>
+      <% end %>
+      <table class="table table-bordered table-striped" id="cashin-table">
+        <thead>
+          <tr>
+            <th>Data</th>
+            <th>Descrição</th>
+            <th>Origem</th>
+            <th>Forma de Pagamento</th>
+            <th>Valor</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @cash_ins.each do |cash_in| %>
+            <tr>
+              <td><%= cash_in.date.strftime("%d/%m/%Y") %></td>
+              <td><%= cash_in.description %></td>
+              <td><%= cash_in.origin %></td>
+              <td><%= cash_in.method %></td>
+              <td><%= cash_in.value.format %></td>
+
+              <td class="actionsForm">
+                <%=link_to edit_cash_in_path(cash_in),{:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#editModal', class: 'btn btn-round btn-primary btn-xs'} do %>
+                  <i class="fa fa-edit"></i>
+                  Editar
+                <% end %>
+                <%= link_to cash_in, method: :delete, data: { confirm: 'Are you sure?' }, class:'btn btn-round btn-danger btn-xs' do %>
+                  <i class="fa fa-trash-o"></i>
+                  Excluir
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+          <tr>
+            <td class="total" colspan="6">Total:
+              <strong><%= to_money(@q.result.sum(:value_cents)) %></strong>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <br>
+        <div class='paginacao'>
+          <%= paginate @cash_ins %>
+        </div>
+        <%= link_to new_cash_in_path, {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#editModal', class: 'btn btn-round btn-success'} do %>
+          Nova Receita Avulsa
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+        </div>
+        <div class="modal-body">
+          ....
+        </div>
+      </div>
+    </div>
+  </div>

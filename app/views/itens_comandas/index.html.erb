@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Itens Comandas</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Comanda</th>
+      <th>Produto</th>
+      <th>Quantidade</th>
+      <th>Valor</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @itens_comandas.each do |itens_comanda| %>
+      <tr>
+        <td><%= itens_comanda.comanda.id%></td>
+        <td><%= itens_comanda.produto.descricao %></td>
+        <td><%= itens_comanda.quantidade %></td>,
+        <td><%= itens_comanda.valor %></td>
+        <td><%= link_to 'Show', itens_comanda %></td>
+        <td><%= link_to 'Edit', edit_itens_comanda_path(itens_comanda) %></td>
+        <td><%= link_to 'Destroy', itens_comanda, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Itens Comanda', new_itens_comanda_path %>

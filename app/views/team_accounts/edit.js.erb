@@ -1,0 +1,3 @@
+$("#pagarModal").find(".modal-body").html("<%= j render(:partial => 'edit', :locals => {:mensalidade => @mensalidade}) %>");
+$("#pagarModal").find(".modal-title").html("Editando Mensalidade");
+$("#pagarModal").modal('show');

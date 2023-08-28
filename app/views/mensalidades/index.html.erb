@@ -1,0 +1,95 @@
+<div class="col-md-12">
+  <div class="x_panel">
+    <% if params[:term].present? %>
+      <%= link_to  mensalidades_list_path(params[:m]), class:"btn btn-danger navbar-right" do %>
+        <i class="fa fa-undo"></i>
+        Limpar Pesquisa
+      <% end %>
+    <% else %>
+      <%= form_with url: mensalidades_list_path(params[:m]), local: true, class:"navbar-form navbar-right", method: :get do |form| %>
+        <div class="form-group">
+          <%= form.text_field :term, class:"form-control", placeholder:"Matrícula, Nome" %>
+        </div>
+        <button type="submit" class="btn btn-default btnPesquisar">Pesquisar</button>
+      <% end %>
+    <% end %>
+    <div class="x_title">
+      <h1>Mensalidades
+      </h1>
+    </div>
+    <div class="x_content">
+      <%= link_to "Exportar CSV", mensalidades_path(format: "csv"), class: "btn btn-primary" %>
+      <table class="table table-bordered table-striped">
+        <thead>
+          <tr>
+            <th>Matrícula</th>
+            <th>Aluno</th>
+            <th>Modalidade</th>
+            <th>Atrasadas</th>
+            <th>Total em Atraso</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @alunos.each do |aluno| %>
+            <tr>
+              <td><%= aluno.matricula.id %></td>
+              <td><%= aluno.nome %></td>
+              <td><%= aluno.modalidade.descricao %></td>
+              <td><%= atrasadas(aluno).size %></td>
+              <td><%= to_money(atrasadas(aluno).sum(:value_cents)) %></td>
+              <td class="actionsForm">
+                <%= link_to mensalidades_aluno_list_path(m: params[:m], id: aluno.id), class: 'btn btn-round btn-success btn-xs' do %>
+                  <i class="fa fa-eye"></i>
+                  Exibir
+                <% end %>
+                <%=link_to  mensalidade_path(aluno.id, format: "csv"),{class: 'btn btn-round btn-primary btn-xs'} do %>
+                  <i class="fa fa-edit"></i>
+                  Exportar Mensalidades
+                <% end %>
+                <% unless aluno.matricula.status == 'Inativa' %>
+                <%= link_to cancelar_mensalidade_path(id: aluno.id, m: params[:m]), data: { confirm: 'Deseja realmente cancelar a matrícula?' }, class:'btn btn-round btn-danger btn-xs' do %>
+                  <i class="fa fa-trash-o"></i>
+                  Cancelar Matrícula
+                <% end %>
+              <% else %>
+                <%= link_to rematricular_aluno_path(aluno.matricula.id), {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#matricularModal', class: 'btn btn-round btn-danger btn-warning btn-xs'} do %>
+                  <i class="fa fa-retweet"></i>
+                  Reativar Matrícula
+                <% end %>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+
+        <tr>
+          <td class="total" colspan="6">Total:
+            <strong><%=  %></strong>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <br>
+      <div class='paginacao'>
+        <%= paginate @alunos %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="matricularModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+      </div>
+      <div class="modal-body">
+        ....
+      </div>
+    </div>
+  </div>
+</div>

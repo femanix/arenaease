@@ -1,0 +1,59 @@
+<%= stylesheet_link_tag 'alunos' %>
+<%= javascript_include_tag 'alunos', 'data-turbolinks-track': 'reload' %>
+<%= form_with(model: @matricula, local: true) do |form| %>
+  <fieldset class="fieldset-border fieldsetCenter">
+    <legend class="legend-border">Dados</legend>
+    <div class="formulario">
+      <div class="field">
+        <%= form.label :data_matricula %>
+        <%= form.date_field :data_matricula , class: 'form-control', :required => true %>
+      </div>
+
+      <div class="field">
+        <%= form.label :vencimento_matricula %>
+        <%= form.date_field :vencimento_matricula , class: 'form-control', :required => true %>
+      </div>
+
+      <div class="field">
+        <%= form.label :validade_exame %>
+        <%= form.date_field :validade_exame, class: 'form-control' %>
+      </div>
+
+      <div class="field">
+        <%= form.label :renovacao %>
+        <%= form.date_field :renovacao, class: 'form-control' %>
+      </div>  
+
+      <div class="field">
+        <%= form.label :desconto, class: 'control-label' %>
+        <div class="input-group">
+          <%= form.text_field :desconto, class: 'form-control', placeholder: '00.0', maxlength: 6 %>
+
+          <span class="input-group-addon">%</span>
+        </div>
+      </div>   
+
+    </div>
+  </fieldset>
+  <fieldset class="fieldset-border fieldsetCenter">
+    <legend class="legend-border">Informações</legend>
+    <div class="formulario">
+      <div class="field">
+        <%= form.label :plano_id %>
+        <%= form.select(:plano_id,  Plano.all.collect { |p| [ "#{p.modalidade.descricao} | #{p.descricao}", p.id ] },{}, class: 'form-control selectModalidade') %>
+      </div>
+
+      <div class="field">
+        <%= form.label :class_schedule %>
+        <%= form.select :class_schedule, grouped_options_for_select(ClassSchedule.chute_inicial[0]),{include_blank: 'Selecione um horário...'},{class: 'agendaSelectize', multiple: true} %>    
+    </div>
+  </fieldset>
+
+  <div class="enviarMatricula">
+    <%= form.hidden_field :aluno_id, value: @matricula.aluno.id %>
+    <%= form.hidden_field :status, value: 'Ativa' %>
+    <%= form.submit 'Enviar', class: 'btn btn-round btn-success'  %>
+  </div>
+
+
+  <%end%>

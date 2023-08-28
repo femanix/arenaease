@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Comanda:</strong>
+  <%= @itens_comanda.comanda %>
+</p>
+
+<p>
+  <strong>Produto:</strong>
+  <%= @itens_comanda.produto %>
+</p>
+
+<p>
+  <strong>Quantidade:</strong>
+  <%= @itens_comanda.quantidade %>
+</p>
+
+<p>
+  <strong>Valor:</strong>
+  <%= @itens_comanda.valor %>
+</p>
+
+<%= link_to 'Edit', edit_itens_comanda_path(@itens_comanda) %> |
+<%= link_to 'Back', itens_comandas_path %>

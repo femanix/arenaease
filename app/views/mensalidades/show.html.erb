@@ -1,0 +1,125 @@
+<%= stylesheet_link_tag 'mensalidades' %>
+<%# stylesheet_link_tag 'https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css' %>
+<%= javascript_include_tag 'mensalidades', 'data-turbolinks-track': 'reload' %>
+<div class="col-md-12">
+  <div class="x_panel">
+    <div class="x_title">
+      <div class="navbar-form navbar-right">
+        <%= link_to '#',:remote => true,class: 'btn btn-round btn-danger btn-xs hide', id: 'excluir-mensalidades' do %>
+          <i class="fa fa-trash-o"></i>
+          Excluir Mensalidades Selecionadas
+        <% end %>
+      </div>
+      <h1>Mensalidades -<%= nome_aluno.titleize %></h1>
+    </div>
+    <div class="x_content">
+      <p id="notice"><%= notice %></p>
+
+      <table class="table table-bordered table-striped" id="mensalidades-table" style="width:100%">
+        <thead>
+          <tr>
+            <th>id-mensalidade</th>
+            <th>Vencimento</th>
+            <th>Valor</th>
+            <th>Plano</th>
+            <th>Status</th>
+            <th class='col-xs-1'>Data de Pagamento</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @mensalidades.each do |mensalidade| %>
+            <tr>
+              <th><%= mensalidade.id %></th>
+              <th><%= mensalidade.vencimento.strftime("%d/%m/%Y") %></th>
+              <th><%= to_money(mensalidade.value) %></th>
+              <th><%= mensalidade.plano.descricao %></th>
+              <th><%= mensalidade.status %></th>
+              <th class='text-center'><%= mensalidade.data_pagamento&.strftime('%d/%m/%Y') %></th>
+              <th class="actionsForm">
+              <% unless mensalidade.status == 'Cancelada' %>
+                <% unless mensalidade.status == 'Pago' %>
+                  <%= link_to 'Pagar', pagar_mensalidade_form_path(id: mensalidade.id, m: params[:m]), {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#pagarModal', class: 'btn btn-round btn-success btn-xs'} %>
+                <% else %>
+                  <%= link_to estornar_mensalidade_path(mensalidade.id), class: 'btn btn-round btn-danger btn-xs' do %>
+                    <i class="fa fa-trash-o"></i>
+                    Estornar Pagamento
+                  <% end %>
+                  <%= link_to 'Emitir Recibo', recibo_mensalidade_path(mensalidade.id), {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#reciboModal', class: 'btn btn-round btn-primary btn-xs'} %></th>
+                <% end %>
+              <% else %>
+                <%= link_to mensalidade, method: :delete, data: { confirm: 'Tem certeza que deseja deletar a mensalidade?' }, class:'btn btn-round btn-danger btn-xs' do %>
+                  <i class="fa fa-trash-o"></i>
+                  Remover
+                <% end %>
+              <% end %>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+      <%= link_to mensalidades_list_path(m: params[:m]), class:'btn btn-round btn-danger btn-sm' do %>
+        Voltar
+      <% end %>
+  </div>
+</div>
+
+
+<div class="modal fade" id="pagarModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- RECIBO -->
+
+
+<div class="modal fade" id="reciboModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+    </div>
+  </div>
+</div>
+
+<%# Exclusão de itens em massa  %>
+
+<div class="modal fade" id="exclusaoModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title" id="myModalLabel">Tem certeza?</h4>
+      </div>
+      <div class="modal-body">
+        <h4 class="text-center">
+          Serão excluídas <strong><span id="qtd-mensalidades"></span></strong> mensalidades!
+        </h4>
+      </div>
+      <div class="footer text-center">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-danger" id="exluir-certeza">Excluir</button>
+      </div>
+    </div>
+  </div>
+</div>

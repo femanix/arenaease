@@ -1,0 +1,27 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Itens:</strong>
+  <%# <%= @comanda.itens_comanda %> %>
+</p>
+
+<p>
+  <strong>Cliente:</strong>
+  <%= @comanda.cliente %>
+</p>
+
+<p>
+  <strong>Forma pagamento:</strong>
+  <%= @comanda.forma_pagamento %>
+</p>
+
+<p>
+  <strong>Valor total:</strong>
+  <%= @comanda.valor_total %>
+</p>
+<% @itens.each do |produto| %>
+<%= produto.produto.descricao %>
+<br>
+<% end %>
+<%= link_to 'Edit', edit_comanda_path(@comanda) %> |
+<%= link_to 'Back', comandas_path %>

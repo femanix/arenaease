@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>UrupaArena</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= javascript_include_tag 'application' %>
+
+    <%= stylesheet_link_tag    'application' %>
+    <%= stylesheet_link_tag    'sistema' %>
+
+    <link rel="shortcut icon" href="/urupa-logo.ico" type="image/x-icon">
+  </head>
+  <body class="nav-md">
+    <div class="container body">
+      <div class="main_container">
+        <div class="col-md-3 left_col">
+          <div class="left_col scroll-view">
+            <div class="navbar nav_title" style="border: 0;">
+              <%= link_to root_path, :class => "site_title" do %>
+                <i class="fa fa-soccer-ball-o"></i>
+                <span>Urupa Arena</span>
+                <%end%>
+              </div>
+
+              <div class="clearfix"></div>
+
+              <!-- menu profile quick info -->
+              <div class="profile clearfix">
+                <div class="profile_info">
+                  <span>Bem vindo(a)</span>
+                  <h2><%= current_user.user_name %></h2>
+                </div>
+              </div>
+              <!-- /menu profile quick info -->
+              <br/>
+              <!-- sidebar menu -->
+              <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+                <% if current_user.super_admin? %>
+                  <div class="menu_section">
+                    <h3>General</h3>
+                    <ul class="nav side-menu">
+                      <li>
+                        <a>
+                          <i class="fa fa-graduation-cap"></i>
+                          Chute Inicial
+                          <span class="fa fa-chevron-down"></span>
+                        </a>
+                        <ul class="nav child_menu">
+                          <li>
+                            <%= link_to "Alunos", alunos_list_path(m: 'chute_inicial') %>
+                          </li>
+                          <li>
+                            <%= link_to "Mensalidades", mensalidades_list_path(m: 'chute_inicial')%>
+                          </li>
+                          <li>
+                            <%= link_to "Planos", planos_path %>
+                          </li>
+                        </ul>
+                      <li>
+                      <li>
+                        <a>
+                          <i class="fa fa-sun-o"></i>
+                          Beach Volley
+                          <span class="fa fa-chevron-down"></span>
+                        </a>
+                        <ul class="nav child_menu">
+                          <li>
+                            <%= link_to "Alunos", alunos_list_path(m: 'beach_volley') %>
+                          </li>
+                          <li>
+                            <%= link_to "Mensalidades", mensalidades_list_path(m: 'beach_volley') %>
+                          </li>
+                          <li>
+                            <%= link_to "Planos", planos_path %>
+                          </li>
+                        </ul>
+                      <li>
+                      <li>
+                        <a>
+                          <i class="fa fa-soccer-ball-o"></i>
+                          Futvolei
+                          <span class="fa fa-chevron-down"></span>
+                        </a>
+                        <ul class="nav child_menu">
+                          <li>
+                            <%= link_to "Alunos", alunos_list_path(m: 'futvolei') %>
+                          </li>
+                          <li>
+                            <%= link_to "Mensalidades", mensalidades_list_path(m: 'futvolei') %>
+                          </li>
+                        </ul>
+                      <li>
+                        <a>
+                          <i class="fa fa-calendar"></i>
+                          Aluguel de Quadra
+                          <span class="fa fa-chevron-down"></span>
+                        </a>
+                        <ul class="nav child_menu">
+                          <li>
+                            <%= link_to "Alugueis", teams_path%>
+                          </li>
+                        </ul>
+                      </li>
+                      <li>
+                        <a>
+                          <i class="fa fa-user"></i>
+                          Cadastros
+                          <span class="fa fa-chevron-down"></span>
+                        </a>
+                        <ul class="nav child_menu">
+                          <li>
+                            <%= link_to "Clientes", clientes_path%>
+                          </li>
+                          <li>
+                            <%= link_to 'Usuários', users_path%>
+                          </li>
+                        </ul>
+                      </li>
+                      <li>
+                        <a>
+                          <i class="fa fa-cubes"></i>
+                          Estoque
+                          <span class="fa fa-chevron-down"></span>
+                        </a>
+                        <ul class="nav child_menu">
+                          <li>
+                            <%= link_to "Produtos", produtos_path %>
+                          </li>
+                          <li>
+                            <a>
+                              Movimentações
+                              <span class="fa fa-chevron-down"></span>
+                            </a>
+                            <ul class="nav child_menu" style="display: block;">
+                              <li class="sub_menu">
+                                <%= link_to "Entradas", estoque_ins_path%>
+                              </li>
+                              <li class="sub_menu">
+                                <%= link_to "Saídas", estoque_outs_path%>
+                              </li>
+                            </ul>
+                          </li>
+                        </ul>
+                      </li>
+                      <li>
+                        <a>
+                          <i class="fa fa-money"></i>
+                          Financeiro
+                          <span class="fa fa-chevron-down"></span>
+                        </a>
+                        <ul class="nav child_menu">
+                          <li>
+                            <%= link_to "Receitas", cash_ins_path %>
+                          </li>
+                          <li>
+                            <%= link_to "Despesas", cash_outs_path %>
+                          </li>
+                        </ul>
+                      </li>
+                    </ul>
+                  </div>
+                <% end %>
+                <div class="menu_section">
+                  <h3>Live On</h3>
+                  <ul class="nav side-menu">
+                    <li>
+                      <a>
+                        <i class="fa fa-credit-card"></i>
+                        Frente de Caixa
+                        <span class="fa fa-chevron-down"></span>
+                      </a>
+                      <ul class="nav child_menu">
+                        <li>
+                          <%= link_to "Comandas", comandas_path%>
+                        </li>
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <!-- /sidebar menu -->
+
+              <!-- /menu footer buttons -->
+              <div class="sidebar-footer hidden-small">
+                <a data-toggle="tooltip" data-placement="top" title="Settings">
+                  <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+                </a>
+                <a data-toggle="tooltip" data-placement="top" title="FullScreen">
+                  <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
+                </a>
+                <a data-toggle="tooltip" data-placement="top" title="Lock">
+                  <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
+                </a>
+                <%= link_to destroy_user_session_path, :title => "Sair",method: :delete, :data => {:toggle => "tooltip",:placement => "top"} do %>
+                  <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
+                  <%end%>
+                </a>
+              </div>
+              <!-- /menu footer buttons -->
+            </div>
+          </div>
+          <!-- top navigation -->
+          <div class="top_nav">
+            <div class="nav_menu">
+              <nav>
+                <div class="nav toggle">
+                  <a id="menu_toggle">
+                    <i class="fa fa-bars"></i>
+                  </a>
+                </div>
+
+                <ul class="nav navbar-nav navbar-right">
+                  <li class="">
+                    <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                      <%= current_user.email %>
+                      <span class=" fa fa-angle-down"></span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-usermenu pull-right">
+                      <li>
+                        <%= link_to 'Perfil', edit_user_path(current_user)%>
+                      </li>
+                      <li>
+                        <%= link_to destroy_user_session_path, method: :delete do %>
+                          <i class="fa fa-sign-out pull-right"></i>Sair
+                          <%end%>
+                        </li>
+                      </li>
+                    </li>
+                  </li>
+                </li>
+              </ul>
+            </li>
+            <li role="presentation" class="dropdown">
+              <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
+                <i class="fa fa-envelope-o"></i>
+                <span class="badge bg-green">6</span>
+              </a>
+              <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
+                <li>
+                  <a>
+                    <span class="image"></span>
+                    <span>
+                      <span>Administrador</span>
+                      <span class="time">3 mins ago</span>
+                    </span>
+                    <span class="message">
+                      Suas notificações aparecerão aqui!
+                    </span>
+                  </a>
+                </li>
+                <li>
+                  <div class="text-center">
+                    <a>
+                      <strong>Ver todos os Alertas!</strong>
+                      <i class="fa fa-angle-right"></i>
+                    </a>
+                  </div>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+    <!-- /top navigation -->
+
+    <!-- page content -->
+    <div class="right_col" role="main">
+      <%= yield %>
+    </div>
+    <!-- /page content -->
+
+    <!-- footer content -->
+    <footer>
+      <div class="pull-right">
+        <a href="#">Urupa Arena</a>
+      </div>
+      <div class="clearfix"></div>
+    </footer>
+    <!-- /footer content -->
+    <%= javascript_include_tag 'sistema' %>
+    <% if notice %>
+      <%= javascript_tag do %>
+        $.bootstrapGrowl('<%= flash[:notice] %>', {
+                                    ele: 'body', // which element to append to
+                                    type: '<%= flash[:type] %>', // (null, 'info', 'danger', 'success')
+                                    offset: {
+                                        from: 'top',
+                                        amount: 75
+                                    }, // 'top', or 'bottom'
+                                    align: 'right', // ('left', 'right', or 'center')
+                                    width: 250, // (integer, or 'auto')
+                                    delay: 5000, // Time while the message will be displayed. It's not equivalent to the *demo* timeOut!
+                                    allow_dismiss: true, // If true then will display a cross to close the popup.
+                                    stackup_spacing: 10 // spacing between consecutively stacked growls.
+                                });
+      <% end %>
+    <% end %>
+  </body>
+</html>

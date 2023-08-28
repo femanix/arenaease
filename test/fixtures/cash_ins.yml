@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  description: MyString
+  origin: MyString
+  value: 9.99
+  method: MyString
+
+two:
+  description: MyString
+  origin: MyString
+  value: 9.99
+  method: MyString

@@ -1,0 +1,64 @@
+// Place all the styles related to the sistema controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+/*
+*= require bootstrap/dist/css/bootstrap
+*= require font-awesome/css/font-awesome
+*= require nprogress/nprogress
+*= require malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar
+*= require custom
+*= require animate
+*= require selectize
+*= require selectize.default
+*/
+
+@import 'datatables';
+
+.sidebar-footer{
+    display:none;
+}
+#notice{
+    display: none;
+}
+.selectize-input{
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #555 !important;
+    background-color: #fff !important;
+    background-image: none !important;
+    border-radius: 0 !important;
+    border: 1px solid #ccc !important;
+}
+thead{
+    th{
+        text-align: center;
+    }
+}
+.actionsForm{
+    text-align: center;
+    padding-bottom: 0 !important;
+    padding-top: 5px !important;
+    white-space:normal !important;
+}
+.input-group-addon{
+    border-radius: 0;
+}
+.option{
+    &:hover{
+        background-color:  #fdd994;
+    }
+}
+.modalOverflow{
+    max-height: 82vh;
+    overflow: auto;
+    padding-bottom: 10px;
+}
+
+.option.active{
+   background-color: #fdd994;
+}
+.selectize-dropdown{
+    margin-left: 0 !important;
+}

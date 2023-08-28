@@ -1,0 +1,255 @@
+// Place all the styles related to the comandas controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+.infoCard{
+    display: flex;
+    justify-content: space-between;
+}
+.btnCriarComanda{
+    margin-left: 10px;
+    margin-bottom: 20px;
+}
+.infoClienteLoja{
+    display: flex;
+    justify-content: space-between;
+}
+
+.btnEditar{
+    color: #fff;
+    background-color: #6c757d;
+    border-color: #6c757d;
+    align-self: center;
+    &:hover{
+        color: #fff;
+        background-color: #b90d0d;
+        border-color: #b81717;
+    }
+}
+.exibPagamento{
+    padding-bottom: 2rem;
+}
+.headerPagamento,.itensPagamento{
+    border-bottom: 1px solid #e5e5e5;
+    margin-bottom: 2rem;
+}
+.headerPagamento{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 12px;
+}
+.geralPagamento{
+    display: flex;
+    justify-content: flex-end;
+
+}
+.informacoesPagamento{
+    max-width: 200px;
+    float: right;
+}
+thead{
+    background-color: #d5e6dd;
+    height: 20px;
+    width: 100%;
+}
+th{
+    padding: 5px;
+}
+table{
+    border: 1px solid gray;
+    width: 100%;
+    margin-bottom: 2rem;
+}
+tr{
+    height: 16px;
+    border-bottom: 0.5px solid gray;
+}
+td{
+    padding: 5px;
+    font-size: 11px;
+}
+.inputPagamento{
+    max-width: 100px;
+    border: 1px solid gray;
+    border-radius: 5px;
+}
+input[type=number]{
+    -moz-appearance: textfield;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+.realizarPagamento{
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+}
+.exibicao{
+    display: none;
+}
+.exibicaoDinheiro{
+    display: block;
+}
+.exibirDinheiro{
+    display: inline;
+    margin: 10px;
+}
+.tituloPagamento{
+    text-align: center;
+}
+.infoPagamento{
+    display: flex;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    justify-content: center;
+}
+.pagar,.gerarNfc,.imprimir{
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+    justify-content: center;
+    border-radius: 5px;
+    border: 1px solid black;
+    background-color: #ACCFBB;
+    
+    color: black;
+    font-weight: bold;
+    font-size: 14px;
+    letter-spacing: 1px;
+    width: 100px;
+    height: 50px;
+    &:hover{
+        color:rgb(42, 42, 42);
+        background-color: #EA865E;        
+    }
+}
+.btn-secondary{
+    color: #fff;
+    background-color: #6c757d;
+    border-color: #6c757d;
+    &:hover{
+        color: #fff;
+        background-color: #605353;
+        border-color: #535a60;
+    }
+}
+.gerarNfc,.imprimir{
+    margin-left: 10px;
+}
+.rodape{
+    border-top: 1px solid gray;
+}
+
+// CSS página de edição/criação
+.clienteObservacao{
+    margin-left: 9px !important;
+}
+.clienteObservacaoSelect{
+    width: 300px;
+    margin: 0 10px 0 5px;
+    display: inline-block;
+    vertical-align: middle;
+}
+.clienteObservacaoInput{
+    width: 340px;
+    display: inline;
+}
+
+.form-horizontal{
+    margin-left: 20px;
+    margin-bottom: 10px;
+}
+.comandaItensSelect,.comandaItensInput{
+    display: inline;
+}
+.comandaItensSelect{
+    width: 350px;
+    margin-right: 10px;
+}
+.comandaItensInput{
+    width: 100px;
+    margin-right: 10px;
+}
+.btnSalvar{
+    margin-top: 10px;
+    float: left;
+}
+.adicionarItem{
+    margin-top: 50px;
+}
+.btnAdicionar{
+    float: left;
+    margin-top: 10px;
+    margin-left: 10px;
+}
+.valorTotal{
+    float: right;
+    margin-top: 10px;
+}
+.labelValor{
+    margin-right: 5px;
+}
+.paginacao{
+    display: flex;
+    width: 100%;
+    margin: auto;
+    justify-content: center;
+}
+.btn-remover{
+    margin-left: 30px;
+}
+.btnPesquisar{
+    margin-bottom: 0;
+    height: 35px;
+}
+.itemAtual{
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+.comandaQuantidadeInput{
+    width: 42px !important;
+    margin-right: 0;
+    height: 29.5px;
+    display: inline;
+}
+.form-horizontal{
+    display: inline;
+}
+.btnSub,.btnSom{
+    padding: 7px 10px;
+    line-height: 0.8;
+    font-size: 13px;
+    display: inline;
+    border-radius: 3px !important;
+    background-color: #ccc;
+    border: 1px solid #ccc;;
+    width: 20px;
+    height: 29px;
+    margin-top: 6px;
+    vertical-align: inherit;
+    cursor: pointer;
+}
+.input-group-addon{
+    padding: 6px 10px;
+    line-height: 0.8;
+    font-size: 13px;
+    display: inline;
+    border-radius: 3px !important;
+}
+.btnSub{
+    margin-right: -5px;
+}
+.btnSom{
+    margin-left: -5px;
+    width: 25px;
+    border-left: 1px solid #ccc !important;
+}
+hr{
+    border-top: 1px solid #ccc;
+}

@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  aluno_id: one
+  rua: MyString
+  numero: 1
+  bairro: MyString
+  cidade: MyString
+  estado: MyString
+  cep: MyString
+
+two:
+  aluno_id: two
+  rua: MyString
+  numero: 1
+  bairro: MyString
+  cidade: MyString
+  estado: MyString
+  cep: MyString

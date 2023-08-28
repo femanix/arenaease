@@ -1,0 +1,107 @@
+.fieldset-border {
+    border: 1px groove #ddd !important;
+    padding: 0 1.4em 1.4em 1.4em !important;
+    margin: 0 0 1.5em 0 !important;
+    -webkit-box-shadow: 0px 0px 0px 0px #000;
+    box-shadow: 0px 0px 0px 0px #000;
+    display: flex;
+}
+  
+.fieldset-border .legend-border {
+    font-size: 1.2em !important;
+    text-align: left !important;
+    width: auto;
+    padding: 0 10px;
+    border-bottom: none;
+}
+
+.field{
+    display: flex;
+    flex-direction: column;
+    margin-right: 10px;
+}
+
+#aluno_modalidade_id{
+    height: 33px;
+    width: 200px;
+}
+.contatoResponsavel{
+    display: flex;
+    flex-direction: column;
+}
+
+.contato,.responsavel{
+    display: flex;
+}
+.responsavel{
+    margin-top: 10px;
+}
+.campoResponsavel{
+    width: 270px;
+}
+
+.inputNome{
+    width: 370px;
+}
+
+input[type=number]::-webkit-inner-spin-button { 
+    -webkit-appearance: none;  
+}
+input[type=number] { 
+   -moz-appearance: textfield;
+   appearance: textfield;
+}
+
+.formulario{
+    display: flex;
+}
+
+.btnMatricular{
+    background-color: #000;
+}
+#matricula_plano_id{
+    height: 33px;
+}
+.actions{
+    display: flex;
+    justify-content: space-between;
+}
+.matricularButton{
+    margin-right: 10px;
+}
+.enviarMatricula{
+    max-height: 38px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-self: flex-end;
+}
+.fieldsetCenter{
+    justify-content: center;
+}
+.input-group{
+    max-width: 120px;
+    max-height: 34px;
+}
+.selectize-input{
+    min-width: 200px;
+    max-width: 400px;
+    max-height: 100px;
+    overflow: auto;
+}
+.btnPesquisar{
+    margin-bottom: 0;
+}
+
+.selectize-dropdown-content .optgroup-header {
+    font-weight: bold;
+    font-size: 15px;
+  }
+  
+td {
+    white-space:normal; /* Impede que o texto quebre em várias linhas */
+    overflow: hidden; /* Oculta o conteúdo que exceder a largura da célula */
+    text-overflow: ellipsis; /* Exibe reticências (...) quando o texto for cortado */
+    font-size: 100%; /* Tamanho padrão do texto */
+    max-height: 2em;
+}

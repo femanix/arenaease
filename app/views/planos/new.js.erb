@@ -1,0 +1,3 @@
+$('#planosModal').find(".modal-body").html("<%= j render(:partial => 'form', :locals => {:plano => @plano}) %>");
+$('#planosModal').find(".modal-title").html("Resumo do Pedido");
+$('#planosModal').modal('show');

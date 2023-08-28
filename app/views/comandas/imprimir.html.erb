@@ -1,0 +1,76 @@
+<table class="printer-ticket">
+<thead>
+  <tr>
+    <th class="title" colspan="4">Urupa Arena</th>
+  </tr>
+  <tr>
+    <th colspan="4">17/11/2015 - 11:57:52</th>
+  </tr>
+  <tr>
+    <th colspan="4">
+    <%= @comanda.cliente.nome_cliente %><br />
+    <%= CPF.new(@comanda.cliente.cpf).formatted %><br />
+    </th>
+  </tr>
+  <tr>
+    <th class="ttu" colspan="4">
+      <b>Cupom não fiscal</b>
+    </th>
+  </tr>
+</thead>
+<tbody>
+    <tr class='ttu produtoInfo'>
+      <th style='padding:0;'>Produto</td>
+      <th style='padding:0;'>Quantidade</td>
+      <th style='padding:0;'>Valor</td>
+      <th style='padding:0;text-align: end;'>Total</td>
+    </tr>
+    <% @comanda.itens_comandas.each  do |item| %>
+    <tr>
+      <td><%= item.produto.descricao %></td>
+      <td><%= item.quantidade %></td>
+      <td><%= to_money(item.valor) %></td>
+      <td style='text-align: end;'><%= to_money(item.quantidade * item.valor) %></td>
+    </tr>
+    <% end %>
+    </tbody>
+    <tfoot>
+    <tr class="sup ttu p--0">
+      <td colspan="4">
+        <b>Totais</b>
+      </td>
+    </tr>
+    <tr class="ttu">
+      <td colspan="3">Total</td>
+      <td align="right"><%= to_money(@comanda.valor_total) %></td>
+    </tr>
+    <tr class="sup ttu p--0">
+      <td colspan="4">
+        <b>Pagamentos</b>
+      </td>
+    </tr>
+    <tr class="ttu">
+      <td colspan="3"><%= puts 'Forma de Pagamento' %></td>
+      <td align="right"><%= to_money(@comanda.valor_total) %></td>
+    </tr>
+    <tr class="ttu">
+      <td colspan="3">Troco</td>
+      <td align="right">Ajustar Troco</td>
+    </tr>
+    <tr class="sup">
+      <td colspan="4" align="center">
+        <b>Pedido:</b>
+      </td>
+    </tr>
+    <tr class="sup">
+      <td colspan="4" align="center">
+      www.urupaarena.cfsoftware.com.br
+      </td>
+    </tr>
+   </tfoot>
+ </table>
+<script>
+    window.print();
+    window.addEventListener("afterprint", function(event) { window.close(); });
+    window.onafterprint();
+</script>

@@ -1,0 +1,36 @@
+<%= stylesheet_link_tag 'teams' %>
+<%= form_with(model: team) do |form| %>
+  <% if team.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(team.errors.count, "error") %> prohibited this team from being saved:</h2>
+
+      <ul>
+        <% team.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <fieldset class="fieldset-border">
+    <legend class="legend-border">Time</legend>        
+    <div class="field">
+      <%= form.label :nome %>
+      <%= form.text_field :nome, class: 'form-control' %>
+    </div>
+
+    <div class="field">
+      <%= form.label :cliente_id %>
+      <%= form.select(:cliente_id, @clientes.collect{ |c| [ c.nome_cliente, c.id ] }, {}, class:'selectize')%>
+
+    </div>
+
+    <div class="field">
+      <%= form.label :modalidade_id %>
+      <%= form.select(:modalidade_id, @modalidades.collect{ |m| [ m.descricao, m.id ] }, {}, class:'form-control')%>
+    </div>
+  </fieldset>
+
+  <div class="actions">
+    <%= form.submit "Salvar", class: 'btn btn-round btn-success' %>
+  </div>
+<% end %>

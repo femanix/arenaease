@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  itens: 1
+  cliente: one
+  forma_pagamento: one
+  valor_total: 9.99
+
+two:
+  itens: 1
+  cliente: two
+  forma_pagamento: two
+  valor_total: 9.99

@@ -1,0 +1,3 @@
+$("#myModal").find(".modal-body").html("<%= j render(:partial => 'pagar', :locals => {:comanda => @comanda}) %>");
+$("#myModal").find(".modal-title").html("Resumo do Pedido");
+$("#myModal").modal('show');

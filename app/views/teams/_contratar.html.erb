@@ -1,0 +1,33 @@
+<%= stylesheet_link_tag 'teams' %>
+<%= form_with(url: contratar_quadra_path, method: :post) do |form| %>
+
+  <fieldset class="fieldset-border">
+    <legend class="legend-border">Informações</legend>
+    <div class="field form-group">
+      <%= form.label :team %>
+      <%= form.text_field :team_name, value: @team.nome, disabled: true, class:'form-control' %>
+    </div>
+    <div class="field form-group">
+      <%= form.label 'Responsável' %>
+      <%= form.text_field :responsavel, value: @team.cliente.nome_cliente, disabled: true, class:'form-control' %>
+    </div>
+
+  </fieldset>
+
+  <fieldset class="fieldset-border">
+    <legend class="legend-border">Mensalidade</legend>
+    <div class="field form-group">
+      <%= form.label 'Planos' %>
+      <%= select :mensalidade, :plano, @planos.collect{ |p|  [p.descricao, p.id]},{include_blank: 'Selecione um Plano'}, class:'form-control' %>
+    </div>
+    <div class="field form-group">
+      <%= form.label 'Primeiro Vencimento' %>
+      <%= date_field :mensalidade, :vencimento, class:'form-control' %>
+    </div>
+  </fieldset>
+
+  <div class="actions">
+    <%= form.submit "Buscar", class: 'btn btn-round btn-success' %>
+  </div>
+
+<% end %>

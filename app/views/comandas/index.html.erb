@@ -1,0 +1,159 @@
+<%= stylesheet_link_tag 'comandas' %>
+<%= javascript_include_tag 'comandas' %>
+
+<div id="modal-window" class="modal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content"></div>
+  </div>
+</div>
+
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="x_panel">
+      <% if params[:term].present? %>
+        <%= link_to  comandas_path, class:"btn btn-danger navbar-right" do %>
+          <i class="fa fa-undo"></i>
+          Limpar Pesquisa
+        <% end %>
+      <% else %>
+        <%= form_with url: comandas_path, local: true, class:"navbar-form navbar-right", method: :get do |form| %>
+          <div class="form-group">
+            <%= form.text_field :term, class:"form-control", placeholder:"Digite aqui..." %>
+          </div>
+          <button type="submit" class="btn btn-default btnPesquisar">Pesquisar</button>
+          <%= hidden_field_tag(:status, params[:status]) %>
+        <% end %>
+      <% end %>
+
+      <div class="x_title">
+        <h1>Comandas</h1>
+
+      </div>
+
+      <div class="x_content">
+
+        <%= render 'painel' %>
+        <%= link_to 'Criar nova Comanda', new_comanda_path, {:remote => true,'data-toggle' =>  "modal", 'data-target' => '#editModal', class: 'btn btn-round btn-success btnCriarComanda'}%>
+        <%= link_to 'Venda Balcão', new_comanda_path(balcao: true), {:remote => true,'data-toggle' =>  "modal", 'data-target' => '#editModal', class: 'btn btn-round btn-warning btnCriarComanda'}%>
+        <div class="row-commands">
+          <% @comandas.each do |comanda| %>
+            <div class="col-md-4 col-sm-4 col-xs-12 profile_details">
+              <div class="well profile_view">
+                <div class="col-sm-12">
+                  <div class='infoCard'>
+                    <i>
+                      <% if comanda.encerrada? %>
+                        <button type="button" class="btn btn-danger btn-xs">
+                          Encerrada
+                        </button>
+                        <% if comanda.invoice.present? %>
+                          <button type="button" class="btn disabled btn-xs">
+                            Nota Fiscal Emitida
+                          </button>
+                        <% end %>
+                      <% else %>
+                        <button type="button" class="btn btn-success btn-xs">
+                          Aberta
+                        </button>
+                      <% end  %>
+                    </i>
+                    <div>
+                      <%= I18n.l comanda.created_at, format: :short %>
+                    </div>
+                  </div>
+                  <div class="left col-xs-10">
+                    <h2><%= comanda.cliente.nome_cliente %></h2>
+                    <p>
+                      <strong>Observação:</strong>
+                      <%= comanda.observacao %>
+                    </p>
+                    <ul class="list-unstyled">
+                      <li>
+                        <i class="fa fa-building"></i>
+                        Total Geral:
+                        <%= comanda.valor_total.format %>
+                      </li>
+                      <li>
+                        <i class="fa fa-phone"></i>
+                        Telefone:
+                        <%= comanda.cliente.telefone%>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="col-xs-12 bottom text-center">
+                  <div class="col-xs-12 emphasis">
+                    <% unless comanda.encerrada? %>
+                      <%= link_to edit_comanda_path(comanda),  {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#editModal', class: 'btn btn-round btn-primary btn-xs'} do %>
+                        <i class="fa fa-th-list"></i>
+                        Editar Comanda
+                      <% end %>
+                    <% end %>
+                    <% if comanda.encerrada? %>
+                        <% unless comanda.invoice.present? %>
+                          <%= link_to comanda_emitirnf_url(comanda),  {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#myModal', class: 'btn btn-round btn-primary disabled btn-xs'} do %>
+                            <i class="fa fa-credit-card"></i>
+                            Gerar Nota Fiscal
+                          <% end %>
+                        <% end %>
+                          <%= link_to pagar_comanda_url(comanda),  {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#myModal', class: 'btn btn-round btn-warning btn-xs'} do %>
+                            <i class="fa fa-credit-card"></i>
+                            Ver Comanda
+                          <% end %>
+                    <% else %>
+                      <%= link_to pagar_comanda_url(comanda),  {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#myModal', class: 'btn btn-round btn-danger btn-xs'} do %>
+                        <i class="fa fa-credit-card"></i>
+                        Encerrar Comanda
+                      <% end %>
+                    <% end  %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+      <div class='paginacao'>
+        <%= paginate @comandas %>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- #Modal utilizado para editar/Criar comanda -->
+
+<!-- #Modal utilizado para pagamento -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+      </div>
+      <div class="modal-body">
+        ....
+      </div>
+    </div>
+  </div>
+</div>

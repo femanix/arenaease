@@ -1,0 +1,43 @@
+<%= stylesheet_link_tag 'cash_ins' %>
+<%= form_with(model: cash_in, local: true) do |form| %>
+  <% if cash_in.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(cash_in.errors.count, "error") %> prohibited this receitas_caixa from being saved:</h2>
+
+      <ul>
+      <% cash_in.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class='nomeCategoria'>
+    <div class="field form-group descricao">
+        <%= form.label 'Descrição', class: 'control-label' %>
+        <%= form.text_field :description, class: 'form-control' %>
+    </div>
+    <div class="field form-group categoria">
+        <%= form.label 'Categoria', class: 'control-label' %>
+        <%= form.text_field :origin, class: 'form-control' %>
+    </div>
+  </div>
+  <div class='informacoes'>
+    <div class="field form-group">
+      <%= form.label :value, class: 'control-label' %>
+      <div class="input-group">
+        <span class="input-group-addon">R$</span>
+        <%= form.text_field :value, class: 'form-control',:onkeyup =>'maskPrice(this)', placeholder: '10,00' %>
+      </div>
+    </div>
+    <div class="field form-group categoria">
+      <%= form.label :method, class: 'control-label' %>
+      <%= form.select :method, ["Dinheiro", "Pix", "Cartão de Crédito", "Cartão de Débito"] ,{},{class: 'form-control'}%>
+    </div>
+</div>
+<div class='dados'>
+  <div class="actions">
+    <%= form.submit 'Salvar nova receita', class: 'btn btn-round btn-success btnSalvar' %>
+  </div>
+</div>
+<% end %>

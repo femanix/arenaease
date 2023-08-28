@@ -1,0 +1,64 @@
+<div class="containerRecibo">
+  <div class="receipt-main">
+    <p class="receipt-title">Recibo</p>
+
+    <div class="receipt-section pull-left">
+      <span class="receipt-label text-large">Número:</span>
+      <span class="text-large"><%= @recibo.numero %></span>
+    </div>
+
+    <div class="pull-right receipt-section">
+      <span class="text-large"><%= to_money(@recibo.valor) %></span>
+    </div>
+
+    <div class="clearfix"></div>
+
+    <div class="receipt-section">
+      <span class="receipt-label">Beneficiário:</span>
+      <span><%= @recibo.aluno.nome.titleize%>
+      </span>
+    </div>
+
+    <div class="receipt-section">
+      <span class="receipt-label">Responsável:</span>
+      <span><%= @recibo.aluno.responsavel1.titleize %>
+        (CPF:
+        <%= cpf_format(@recibo.aluno.cpf) %>)</span>
+    </div>
+
+    <div class="receipt-section">
+      <p>Recebi de
+        <%= @recibo.aluno.nome.titleize%>
+        a importância de
+        <%= valor_por_extenso(@recibo.valor) %></p>
+      <p>Referente ao pagamento de mensalidade com vencimento em:
+        <%= date_format(@recibo.mensalidade.vencimento) %></p>
+    </div>
+
+    <div class="receipt-section">
+      <p class="pull-right text-large">Suzano,
+        <%= @recibo.mensalidade.data_pagamento.to_date.strftime("%d/%m/%Y") %></p>
+    </div>
+
+    <div class="clearfix"></div>
+
+    <div class="receipt-signature col-xs-6">
+      <p class="receipt-line"></p>
+      <p>Urupa Arena</p>
+      <p>32.158.596/0001-49</p>
+      <p>R. dos Maçons, 1489 - Jardim Santa Lucia</p>
+      <p>Suzano - SP - 08615-240</p>
+    </div>
+
+    <div class="receipt-signature col-xs-6">
+      <p class="receipt-line"></p>
+      <p><%= @recibo.aluno.nome.titleize %></p>
+      <p><%= cpf_format(@recibo.aluno.cpf) %></p>
+    </div>
+
+  </div>
+  <%= link_to whatsapp_recibo(@mensalidade),  target: "_blank",  class: 'btn btn-round btn-success btn-lg btnEnviarRecibo' do %>
+    <i class="fa fa-whatsapp"></i>
+    Enviar WhatsApp
+  <% end %>
+</div>

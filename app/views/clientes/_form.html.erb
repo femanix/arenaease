@@ -1,0 +1,33 @@
+<%= javascript_include_tag 'clientes' %>
+<%= form_with(model: cliente, local: true) do |form| %>
+  <% if cliente.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(cliente.errors.count, "error") %> prohibited this cliente from being saved:</h2>
+
+      <ul>
+      <% cliente.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :nome_cliente, class: 'control-label' %>:
+    <%= form.text_field :nome_cliente,:required => true, class: 'form-control' %>
+  </div>
+
+  <div class="field">
+    <%= form.label :telefone, class: 'control-label' %>:
+    <%= form.text_field :telefone, class: 'form-control' ,onkeyup:'maskTel(this)', placeholder:'(11) 99999-9999', :maxLength => 15 %>
+  </div>
+
+  <div class="field">
+    <%= form.label :cpf, class: 'control-label'%>:
+    <%= form.text_field :cpf, class: 'form-control', onkeyup:'maskCpf(this)', placeholder:'555.555.555-55', :maxLength => 30  %>
+  </div>
+
+  <div class="actions modal-footer">
+    <%= form.submit 'Salvar', class:'btn btn-round btn-success' %>
+  </div>
+<% end %>

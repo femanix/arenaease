@@ -1,0 +1,117 @@
+<%= stylesheet_link_tag 'alunos' %>
+<%= javascript_include_tag 'alunos' %>
+<%= form_with(model: @aluno, local: true) do |form| %>
+  <% if aluno.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(aluno.errors.count, "error") %>
+        erros impediram que este aluno fosse salvo:</h2>
+
+      <ul>
+        <% aluno.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <fieldset class="fieldset-border">
+    <legend class="legend-border">Informações básicas</legend>
+    <div class="field form-group">
+      <%= form.label :nome %>
+      <%= form.text_field :nome, class: 'form-control inputNome', required: true %>
+    </div>
+
+    <div class="field form-group">
+      <%= form.label :data_nascimento %>
+      <%= form.date_field :data_nascimento, class: 'form-control', required: true %>
+    </div>
+
+  </fieldset>
+  <fieldset class="fieldset-border">
+    <%= form.fields_for :endereco do |endereco_form| %>
+      <legend class="legend-border">Endereço</legend>
+      <div class="field">
+        <%= endereco_form.label :cep %>
+        <%= endereco_form.text_field :cep, class: 'form-control'  %>
+      </div>
+
+      <div class="field">
+        <%= endereco_form.label :rua %>
+        <%= endereco_form.text_field :rua, class: 'form-control', readonly: true  %>
+      </div>
+
+      <div class="field">
+        <%= endereco_form.label :numero %>
+        <%= endereco_form.number_field :numero, class: 'form-control'  %>
+      </div>
+
+      <div class="field">
+        <%= endereco_form.label :bairro %>
+        <%= endereco_form.text_field :bairro, class: 'form-control'  %>
+      </div>
+
+      <div class="field">
+        <%= endereco_form.label :cidade %>
+        <%= endereco_form.text_field :cidade, class: 'form-control'  %>
+      </div>
+
+      <div class="field">
+        <%= endereco_form.label :uf %>
+        <%= endereco_form.text_field :estado, class: 'form-control'  %>
+      </div>
+    <% end %>
+  </fieldset>
+  <fieldset class="fieldset-border">
+    <legend class="legend-border">Contato e Responsável</legend>
+    <div class="contatoResponsavel">
+      <div class="contato">
+        <div class="field">
+          <%= form.label :telefone1 %>
+          <%= form.text_field :telefone1 , class: 'form-control telefone', onkeyup:'maskTel(this)', placeholder:'(11) 99999-9999', :maxLength => 15, required: true %>
+        </div>
+
+        <div class="field">
+          <%= form.label :telefone2 %>
+          <%= form.text_field :telefone2, class: 'form-control telefone', onkeyup:'maskTel(this)', placeholder:'(11) 99999-9999', :maxLength => 15  %>
+        </div>
+
+        <div class="field">
+          <%= form.label :telefone3 %>
+          <%= form.text_field :telefone3, class: 'form-control telefone', onkeyup:'maskTel(this)', placeholder:'(11) 99999-9999', :maxLength => 15  %>
+        </div>
+
+        <div class="field form-group">
+          <%= form.label :rg %>
+          <%= form.number_field :rg, class: 'form-control' %>
+        </div>
+
+        <div class="field form-group">
+          <%= form.label :cpf %>
+          <%= form.text_field :cpf , class: 'form-control', onkeyup:'maskCpf(this)', placeholder:'555.555.555-55', :maxLength => 30, required: true %>
+        </div>
+      </div>
+      <div class="responsavel">
+        <div class="field campoResponsavel">
+          <%= form.label :responsavel1 %>
+          <%= form.text_field :responsavel1, class: 'form-control'  %>
+        </div>
+
+        <div class="field campoResponsavel">
+          <%= form.label :responsave2 %>
+          <%= form.text_field :responsavel2, class: 'form-control'  %>
+        </div>
+
+        <div class="field">
+          <%= form.label :modalidade_id %>
+          <%= form.select(:modalidade_id,  @modalidades.collect { |m| [ m.descricao, m.id ] },{}, class: 'form-control') %>
+        </div>
+      </div>
+    </div>
+  </fieldset>
+  <%= hidden_field 'location', 'modalidade', value: params[:m] %>
+  <div class="actions">
+    <div>
+      <%= form.submit "Salvar Aluno" , class: 'btn btn-round btn-success' %>
+      <%= link_to 'Voltar', alunos_list_path(m: params[:m]),class:'btn btn-primary' %>
+    </div>
+  </div>
+<% end %>

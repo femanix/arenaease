@@ -1,0 +1,86 @@
+
+.nomeCategoria{
+    display: flex;
+}
+#despesa_categoria{
+    height: 35px;
+}
+.descricao{
+    flex-grow: 2;
+}
+.actions{
+    display: flex;
+    justify-content: center;
+}
+.informacoes{
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+.categoria{
+    flex-grow: 2;
+    display: flex;
+    flex-direction: column;
+    margin-left: 5px;
+}
+.selectCategoria{
+    height: 34px;
+}
+.selectCliente,.selectFornecedor{
+    width: 250px;
+}
+.pago{
+    margin: 10px;
+}
+.pagamento{
+    display: none;
+}
+.dados{
+    margin-top: 20px;
+    display: flex;
+}
+.selectPeriodicidade{
+    max-width: 250px;
+}
+.btnSalvar{
+    margin-top: 20px;
+    margin-left: 10px;
+}
+.form-group{
+    margin-left: 10px;
+}
+
+input[type=number]::-webkit-inner-spin-button { 
+    -webkit-appearance: none;  
+}
+input[type=number] { 
+   -moz-appearance: textfield;
+   appearance: textfield;
+}
+.total{
+    border: 1px solid black;
+    font-size: 20px;
+    text-align: right;
+    color: gray;
+}
+.valor{
+    font-size: 20px;
+}
+.navbarMenu{
+    display: flex;
+    margin: 0 0 10px 0;
+    flex-direction: row;
+    p{
+        align-self: center;
+        margin: 0 !important;
+        margin-left: 10px !important;
+    }
+
+    .navbarForm{
+        display: flex;
+        flex-direction: row;
+    }
+    button{
+        margin-left: 10px;
+    }
+}    

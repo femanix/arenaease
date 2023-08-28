@@ -1,0 +1,3 @@
+$("#reciboModal").find(".modal-body").html("<%= j render(:partial => 'recibo', :locals => {:recibo => @recibo}) %>");
+$("#reciboModal").find(".modal-title").html("Recibo - Mensalidade");
+$("#reciboModal").modal('show');

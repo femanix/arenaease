@@ -1,0 +1,74 @@
+<head>
+  <title>UrupaArena</title>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+  <%= stylesheet_link_tag 'mensalidades', media: 'all', 'data-turbolinks-track': 'reload'  %>
+  <%= stylesheet_link_tag 'application' , media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= stylesheet_link_tag 'sistema', media: 'all', 'data-turbolinks-track': 'reload'  %>
+  <%= stylesheet_link_tag 'recibos'%>
+  <link rel="shortcut icon" href="/urupa-logo.ico" type="image/x-icon">
+  <script>
+    window.print();
+    window.addEventListener("afterprint", function(event) { window.close(); });
+    window.onafterprint();
+  </script>
+</head>
+<div class="receipt-main reciboContainer">
+
+  <p class="receipt-title">Recibo</p>
+
+  <div class="receipt-section pull-left">
+    <span class="receipt-label text-large">Número:</span>
+    <span class="text-large"><%= @recibo.numero %></span>
+  </div>
+
+  <div class="pull-right receipt-section">
+    <span class="text-large"><%= to_money(@recibo.valor) %></span>
+  </div>
+
+  <div class="clearfix"></div>
+
+  <div class="receipt-section">
+    <span class="receipt-label">Beneficiário:</span>
+    <span><%= @recibo.aluno.nome.titleize%>
+      (CPF:
+      <%= @recibo.aluno.cpf %>)</span>
+  </div>
+
+  <div class="receipt-section">
+    <span class="receipt-label">Responsável:</span>
+    <span><%= @recibo.aluno.responsavel1.titleize %>
+      (CPF:
+      <%= @recibo.aluno.cpf %>)</span>
+  </div>
+
+  <div class="receipt-section">
+    <p>Recebi de
+      <%= @recibo.aluno.nome.titleize%>
+      a importância de
+      <%= valor_por_extenso(@recibo.valor) %></p>
+    <p>Referente ao pagamento de mensalidade com vencimento em: <%= date_format(@recibo.mensalidade.vencimento)%></p>
+  </div>
+
+  <div class="receipt-section">
+    <p class="pull-right text-large">Suzano,
+      <%= @recibo.mensalidade.data_pagamento.to_date.strftime("%d/%m/%Y") %></p>
+  </div>
+
+  <div class="clearfix"></div>
+
+  <div class="receipt-signature col-xs-6">
+    <p class="receipt-line"></p>
+    <p>Urupa Arena</p>
+    <p>32.158.596/0001-49</p>
+    <p>R. dos Maçons, 1489- Jardim Santa Lucia</p>
+    <p>
+      Suzano - SP - 08615-240</p>
+  </div>
+
+  <div class="receipt-signature col-xs-6">
+    <p class="receipt-line"></p>
+    <p><%= @recibo.aluno.nome.titleize %></p>
+    <p><%= @recibo.aluno.cpf %></p>
+  </div>
+</div>

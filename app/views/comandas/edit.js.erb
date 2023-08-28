@@ -1,0 +1,3 @@
+$("#editModal").find(".modal-body").html("<%= j render(:partial => 'edit', :locals => {:comanda => @comanda}) %>");
+$("#editModal").find(".modal-title").html("Editando Comanda");
+$("#editModal").modal('show');

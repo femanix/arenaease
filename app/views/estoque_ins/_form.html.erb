@@ -1,0 +1,42 @@
+<%= form_with(model: estoque_in, local: true) do |form| %>
+  <% if estoque_in.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(estoque_in.errors.count, "error") %> prohibited this estoque_in from being saved:</h2>
+
+      <ul>
+      <% estoque_in.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :produto_id %>
+    <%= form.select(:produto_id, @produto.collect { |p| [ p.descricao, p.id ] }, { include_blank: "Itens" } )%>
+  </div>
+
+  <div class="field">
+    <%= form.label :quantidade %>
+    <%= form.number_field :quantidade %>
+  </div>
+
+  <div class="field">
+    <%= form.label :preco_compra %>
+    <%= form.text_field :preco_compra %>
+  </div>
+
+  <div class="field">
+    <%= form.label :user_id %>
+    <%= form.text_field :user_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :fornecedor_id %>
+    <%= form.number_field :supplier_id %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

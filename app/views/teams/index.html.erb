@@ -1,0 +1,105 @@
+<%= stylesheet_link_tag 'teams' %>
+<%= javascript_include_tag 'teams' %>
+
+<div class="col-md-12">
+  <div class="x_panel">
+    <div class="x_title">
+      <h1>Aluguel de Quadra | Equipes
+      </h1>
+    </div>
+    <div class="x_content">
+      <p id="notice"><%= notice %></p>
+
+      <table class='table table-bordered table-hover'>
+        <thead>
+          <tr>
+            <th>Nome</th>
+            <th>Cliente</th>
+            <th>Modalidade</th>
+            <th>Saldo</th>
+            <th class="actionHeader">Ações</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @teams.each do |team| %>
+            <tr>
+              <td><%= team.nome %></td>
+              <td><%= team.cliente.nome_cliente %></td>
+              <td><%= team.modalidade.descricao %></td>
+              <td class=<%= "#{balance_class team}"%>>
+                <strong>
+                  <%= to_money team.team_account.balance %>
+                </strong>
+              </td>
+              <td class="actionsForm">
+                <%= link_to  edit_team_path(team),  {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#contratarModal', class: 'btn btn-round btn-primary btn-xs'} do %>
+                  <i class="fa fa-edit"></i>
+                  Editar
+                <% end %>
+
+                <%= link_to team_account_path(team), class: 'btn btn-round btn-info btn-xs' do %>
+                  <i class="fa fa-cc"></i>
+                  Conta Corrente
+                <% end %>
+
+                <%= link_to  contratar_path(team.id),  {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#contratarModal', class: "btn btn-round btn-xs btn-#{mensalidades? team} "} do %>
+                  <i class="fa fa-th-list"></i>
+                  Contratar
+                <% end %>
+
+                <%= link_to inativar_team_path(team.id), data: { confirm: 'Tem certeza que gostaria de inativar o time?' }, class:'btn btn-round btn-danger btn-xs' do %>
+                  <i class="fa fa-trash-o"></i>
+                  Inativar
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+
+      <br>
+
+        <div class="criarTime">
+          <%= link_to  new_team_path,  {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#contratarModal', class: 'btn btn-round btn-success btn-lg'} do %>
+            Criar Time
+          <% end %>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="contratarModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+        </div>
+        <div class="modal-body">
+          ...
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RECIBO -->
+
+  <div class="modal fade" id="reciboModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+        </div>
+        <div class="modal-body">
+          ...
+        </div>
+      </div>
+    </div>
+  </div>

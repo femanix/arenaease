@@ -1,0 +1,116 @@
+<div class="printButton">
+  <button class="btn" onClick="imprimirContrato()">Imprimir</button>
+</div>
+<div class="printer-enroll">
+  <div class="header">
+<%= image_tag "logo_chute_inicial.png", size: "150x90", class: "" %>
+    <div class="headerText">
+      <strong>
+        <p>CHUTE INICIAL - SUZANO</p>
+        <p>JK ESPORTES LTDA - ME</p>
+      </strong>
+    </div>
+  </div>
+  <div class="container">
+    <div class="line">
+      <p><strong>Código:</strong>
+        <%= @aluno.matricula.id %></p>
+      <p><strong>Nome:</strong>
+        <%= @aluno.nome.upcase %></p>
+    </div>
+    <div class="line">
+      <p><strong>Data de Nascimento:</strong>
+        <%= date_format(@aluno.data_nascimento) %></p>
+      <p><strong>Naturalidade:</strong> SÃO PAULO</p>
+    </div>
+    <div class="line">
+      <p><strong>RG:</strong>
+        <%= @aluno.rg %></p>
+      <p><strong>CPF:</strong>
+        <%= cpf_format(@aluno.cpf) %></p>
+      <p><strong>Data da Matrícula:</strong>
+        <%= @aluno.matricula.data_matricula %></p>
+    </div>
+    <div class="line">
+      <p><strong>Pai:</strong>
+        <%= @aluno.responsavel2 %></p>
+      <p><strong>Mãe:</strong>
+        <%= @aluno.responsavel1 %></p>
+    </div>
+    <div class="line">
+      <p><strong>Endereço:</strong>
+        <%= @aluno.endereco.rua.upcase %></p>
+      <p><strong>CEP:</strong>
+        <%= @aluno.endereco.cep %></p>
+    </div>
+    <div class="line">
+      <p><strong>Bairro:</strong> <%= @aluno.endereco.bairro %></p>
+      <p><strong>Cidade:</strong> <%= @aluno.endereco.cidade %></p>
+    </div>
+    <div class="line">
+      <p><strong>Fone Res.:</strong><%= phone_format(@aluno.telefone1) %></p>
+      <p><strong>Fone Coml:</strong><%= phone_format(@aluno.telefone2) %></p>
+    </div>
+    <div class="line">
+      <p><strong>Celular:</strong>
+      <%= phone_format(@aluno.telefone3) %></p>
+      <p><strong>Falar com:</strong> </p>
+    </div>
+    <div class="verticalLine">
+      <div class="timeInfo">
+        <p>Horários:  </p>
+
+        <strong class="schedule">
+          <% @aluno.matricula.class_schedule.each do |schedule| %>
+            <p> 
+              <%= schedule %>
+            </p>
+          <% end %>
+        </strong>
+
+      </div>
+      <div class="studentPhoto"></div>
+    </div>
+    <div class="line">
+      <p class="normative">Normativas</p>
+    </div>
+    <div class="normative">
+      <p>1 - Não haverá aulas em feriados nacionais e quando o tempo expuser os alunos em
+                                              perigo (chuva, raios e trovões).
+      </p>
+      <p>2 - Não deixar objetos jogados nos vestiários. Traga cadeado para guardar seus
+                                              pertences, não nos responsabilizamos por objetos extraviados.</p>
+      <p>3 - O aluno só terá direito de frequentar as aulas mencionadas nos dias e
+                                              horários estipulados acima.
+      </p>
+      <p>4 - O aluno só poderá repor aulas mediante a apresentação de atestado médico,
+                                              sendo passível de prévio agendamento.
+      </p>
+      <p>5 - O valor da mensalidade é de <%= to_money(@aluno.matricula.plano.valor) %> e o valor do transporte é de R$ 0,00 se o pagamento for efetuado até a data
+                                              de vencimento que será todo o dia <%= @aluno.matricula.data_matricula.day %> terá um desconto de <%= @aluno.matricula.desconto %>%. Após essa data, o responsável deverá entrar em contato com a secretaria da escola em até 10 dias
+                                              corridos, caso o contrário o aluino não poderá mais frequentar as aulas.
+      </p>
+      <p>6 - O aluno só ficará isento da mensalidade mediante a apresentação de atestado
+                                              médico caso contrário, a mensalidade será cobrada normalmente, independente
+                                              do aluno ter frequentado ou não as aulas.
+      </p>
+    </div>
+    <div class="signatureContainer">
+      <div class="responsibleSignature">
+        <p>Responsável</p>
+      </div>
+      <div class="companySignature">
+        <p>JK ESPORTES LTDA - ME</p>
+      </div>
+    </div>
+  </div>
+  <footer>
+    <p>R. dos Maçons, 387 - Jardim Santa Lucia, Suzano - SP</p>
+    <p>Contato: (11) 94306-7122</p>
+  </footer>
+</div>
+<script>
+  function imprimirContrato() {
+    window.print();
+  }
+</script>

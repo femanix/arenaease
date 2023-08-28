@@ -1,0 +1,5 @@
+
+
+$("#pagarModal").find(".modal-body").html("<%= j render(:partial => 'form', :locals => {:mensalidade => @mensalidade}) %>");
+$("#pagarModal").find(".modal-title").html("Mensalidade");
+$("#pagarModal").modal('show');

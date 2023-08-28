@@ -1,0 +1,17 @@
+<%= stylesheet_link_tag 'comandas' %>
+<%= javascript_include_tag 'comandas' %>
+
+<div class= "nested-fields  form-horizontal">
+    <%= f.label :produto_id %>
+    <%= f.select(:produto_id,  @produtos.collect { |p| [ "#{p.descricao} | #{to_money(p.preco_venda)}", p.id ] }, { include_blank: "Itens" }, class:'form-control comandaItensSelect') %>
+    <div style='display:inline'>
+        <%= f.label :quantidade %>
+        <div class='itemAtual' style='display:inline'>
+            <div class='btnSub' remote=false onclick='subtrair(this)'>-</div>
+            <%= f.text_field :quantidade, id:'quantidade', class:'form-control comandaQuantidadeInput'%>
+            <div class='btnSom' remote=false onclick='somar(this)' >+</div>
+        </div>
+    </div>
+    <%= link_to_remove_association('Remover', f, class: 'btn btn-danger btn-remover') %>
+    <br>
+</div>

@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @cash_in.description %>
+</p>
+
+<p>
+  <strong>Origin:</strong>
+  <%= @cash_in.origin %>
+</p>
+
+<p>
+  <strong>Value:</strong>
+  <%= @cash_in.value %>
+</p>
+
+<p>
+  <strong>Method:</strong>
+  <%= @cash_in.method %>
+</p>
+
+<%= link_to 'Edit', edit_cash_in_path(@cash_in) %> |
+<%= link_to 'Back', cash_ins_path %>

@@ -1,0 +1,71 @@
+<% stylesheet_link_tag 'cash_outs' %>
+<%= form_with(model: cash_out, local: true) do |form| %>
+  <% if cash_out.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(cash_out.errors.count, "error") %> prohibited this cash_out from being saved:</h2>
+
+      <ul>
+      <% cash_out.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class='nomeCategoria'>
+    <div class="field form-group descricao">
+        <%= form.label :description, class: 'control-label' %>
+        <%= form.text_field :description, class: 'form-control' %>
+    </div>
+    <div class="field form-group categoria">
+        <%= form.label :category, class: 'control-label' %>
+        <%= form.text_field :category, class: 'form-control selectCategoria' %>
+    </div>
+  </div>
+  <div class='informacoes'>
+    <div class="field form-group">
+      <%= form.label :expiration, class: 'control-label' %>
+      <%= form.date_field :expiration, class: 'form-control' %>
+    </div>
+    <div class="field form-group">
+      <%= form.label :value, class: 'control-label' %>
+      <div class="input-group">
+        <span class="input-group-addon">R$</span>
+        <%= form.text_field :value, class: 'form-control',:onkeyup =>'maskPrice(this)', placeholder: '10,00' %>
+      </div>
+    </div>
+    <div class="field form-group">
+      <%= form.label 'Quantidade', class: 'control-label' %>
+      <%= form.number_field :qtd, class: 'form-control' %>
+    </div>
+    <div class="field form-group">
+      <%= form.label 'Periodicidade', class: 'control-label' %>
+      <%= form.select :frequency, ["Única", "Quinzenal", "Anual", "Mensal"] ,{},{class: 'form-control selectPeriodicidade'}%>
+    </div>
+</div>
+<div class='dados'>
+  <div class="field form-group">
+    <%= form.label 'Fornecedor', class: 'control-label' %>
+    <%= form.select(:supplier, @suppliers.collect { |s| [ s.description, s.description ] },{ prompt: "Digite para criar um novo..." },  class: " selectFornecedor selectize-fornecedor") %>
+  </div>
+</div>
+<div class='pago'>
+  <%= form.label 'Pago', class: 'control-label' %>
+  <%= form.check_box :pago, checked: cash_out.paga?, id: 'pago', onClick: 'exibPago()' %>
+</div>
+<div class='pagamento' id='pagamento' style='display:<%= cash_out.paga? ? 'flex' : 'none' %>'>
+    <div class="field form-group">
+      <%= form.label :payment_date, class: 'control-label' %>
+      <%= form.date_field :payment_date, class: 'form-control' %>
+    </div>
+    <div class="field form-group">
+    <%= form.label :method, class: 'control-label' %>
+    <%= form.select(:method, ['Boleto','Cartão de Crédito','Cartão de Débito','Cheque','Dinheiro','Pix'],{ prompt: "Selecione uma opção" },  class: "form-control selectFornecedor") %>
+
+  </div>
+</div>
+  <div class="actions">
+    <%= form.submit 'Salvar nova despesa', class: 'btn btn-round btn-success btnSalvar' %>
+  </div>
+</div>
+<% end %>

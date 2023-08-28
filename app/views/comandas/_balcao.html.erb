@@ -1,0 +1,27 @@
+<%= stylesheet_link_tag 'comandas' %>
+<%= form_with(model: comanda, url: comanda_balcao_path, local: true, class: 'form-horizontal form-label-left', method: :post) do |form| %>
+
+
+  <div class="form-group clienteObservacao ">
+      <%= text_field 'data', :nome_cliente ,value: comanda.cliente.nome_cliente, class:'form-control clienteObservacaoSelect', readonly: true %>
+      <%= form.hidden_field :cliente_id, value: comanda.cliente.id %>
+      <%= select 'data',:method, @methods, { include_blank: " Selecione a forma de Pagamento..."},class:'form-control clienteObservacaoInput required' %>
+
+  </div>
+
+  <hr/>
+
+  <div id="itens_comandas">
+    <%= form.fields_for :itens_comandas do |itens_comanda|%>
+      <%= render partial: "itens_comanda_fields", locals: { f: itens_comanda} %>
+    <% end %>
+    <div class='adicionarItem'>
+      <%= link_to_add_association 'Adicionar Item', form, :itens_comandas, :class => 'btn btn-success btnAdicionar' %>
+    </div>
+  </div>
+  
+  <div class="btnSalvar">    
+    <%= form.submit 'Encerrar Venda',class:'btn btn-primary'%>
+  </div>  
+
+<% end %>

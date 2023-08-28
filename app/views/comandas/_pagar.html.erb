@@ -1,0 +1,119 @@
+<%= stylesheet_link_tag 'comandas' %>
+<%= javascript_include_tag 'comandas' %>
+<div class='infoClienteLoja'>
+  <div>
+    <p>Data:
+      <%= Time.current()%></p>
+    <p>
+      Nome do cliente:
+      <%= @comanda.cliente.nome_cliente %>
+    </p>
+  </div>
+</div>
+<div class="formPagamento" id="formPagamento">
+  <div class="exibPagamento">
+    <div class="itensPagamento">
+      <table>
+        <thead>
+          <tr>
+            <th>Item</th>
+            <th>Quantidade</th>
+            <th>Valor</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @comanda.itens_comandas.each  do |item| %>
+            <tr>
+              <td><%= item.produto.descricao %></td>
+              <td><%= item.quantidade %></td>
+              <td><%= Money.new(item.valor).format%></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+      <div class="geralPagamento">
+        <p>
+          <b>Valor total:</b>
+          <%= @comanda.valor_total.format %></p>
+        <br></div>
+      </div>
+      <% unless @comanda.encerrada? %>
+      <div class="informacoesPagamento">
+        <select class='form-control' name='paymentSelect' id='paymentSelect' onchange="exibPagamentos()">
+          <option selected disabled hidden>Forma de pagamento</option>
+          <option value="dinheiro">Dinheiro</option>
+          <option value="cartaoCredito">Cartão de crédito</option>
+          <option value="cartaoDebito">Cartão de débito</option>
+          <option value="pix">Pix</option>
+        </select>
+      </div>
+    </div>
+  </div>
+  <div class="realizarPagamento">
+
+    <div id='exibicaoDinheiro' class='exibicao'>
+      <div class='exibirDinheiro'>
+        <label>Valor pago:
+          <input class='inputPagamento' id='valorPago' type='text' onkeyup='maskPrice(this)'></label>
+        </div>
+        <div class='exibirDinheiro'>
+          <label>Troco em dinheiro:
+            <input class='inputPagamento' id='valorDisc' onkeyup='maskPrice(this)'></label>
+          </div>
+          <div class='infoPagamento'>
+            <%= link_to "#{encerrar_comanda_path(comanda)}?forma=0",  {class: 'btn btn-success'} do %>
+              <i class="fa fa-credit-card"></i>
+              Pagar
+            <% end %>
+            <%= link_to imprimir_comanda_path(comanda),  {class: 'btn btn-secondary', target:'_blank'}  do %>
+              <i class="fa fa-th-list"></i>
+              Imprimir
+            <% end %>
+          </div>
+        </div>
+        <div id='exibicaoCartaoDebito' class='exibicao'>
+          <h5 class='tituloPagamento'>Cartão de débito</h5>
+          <div class='infoPagamento'>
+            <%= link_to "#{encerrar_comanda_path(comanda)}?forma=3",  {class: 'btn btn-success'} do %>
+              <i class="fa fa-credit-card"></i>
+              Pagar
+            <% end %>
+            <%= link_to imprimir_comanda_path(comanda),  {class: 'btn btn-secondary', target:'_blank'}  do %>
+              <i class="fa fa-th-list"></i>
+              Imprimir
+            <% end %>
+          </div>
+        </div>
+        <div id='exibicaoCartaoCredito' class='exibicao'>
+          <h5 class='tituloPagamento'>Cartão de crédito</h5>
+          <div class='infoPagamento'>
+            <%= link_to "#{encerrar_comanda_path(comanda)}?forma=2",  {class: 'btn btn-success'} do %>
+              <i class="fa fa-credit-card"></i>
+              Pagar
+            <% end %>
+            <%= link_to imprimir_comanda_path(comanda),  {class: 'btn btn-secondary', target:'_blank'}  do %>
+              <i class="fa fa-th-list"></i>
+              Imprimir
+            <% end %>
+          </div>
+        </div>
+        <div id='exibicaoPix' class='exibicao'>
+          <h5 class='tituloPagamento'>PIX</h5>
+          <div class='infoPagamento'>
+            <%= link_to "#{encerrar_comanda_path(comanda)}?forma=1",  {class: 'btn btn-success'} do %>
+              <i class="fa fa-credit-card"></i>
+              Pagar
+            <% end %>
+            <%= link_to "#",  {class: 'btn btn-warning disabled'} do %>
+              <i class="fa fa-th-list"></i>
+              Gerar QR Code
+            <% end %>
+            <%= link_to imprimir_comanda_path(comanda),  {class: 'btn btn-secondary', target:'_blank'}  do %>
+              <i class="fa fa-th-list"></i>
+              Imprimir
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    </div>

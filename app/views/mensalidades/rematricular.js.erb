@@ -1,0 +1,5 @@
+
+
+$("#matricularModal").find(".modal-body").html("<%= j render(:partial => 'rematricula', :locals => {:matricula => @matricula}) %>");
+$("#matricularModal").find(".modal-title").html("Rematricular Aluno");
+$("#matricularModal").modal('show');

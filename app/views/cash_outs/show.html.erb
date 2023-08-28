@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @cash_out.description %>
+</p>
+
+<p>
+  <strong>Category:</strong>
+  <%= @cash_out.category %>
+</p>
+
+<p>
+  <strong>Value:</strong>
+  <%= @cash_out.value %>
+</p>
+
+<p>
+  <strong>Method:</strong>
+  <%= @cash_out.method %>
+</p>
+
+<p>
+  <strong>Expiration:</strong>
+  <%= @cash_out.expiration %>
+</p>
+
+<p>
+  <strong>Payment date:</strong>
+  <%= @cash_out.payment_date %>
+</p>
+
+<p>
+  <strong>Supplier:</strong>
+  <%= @cash_out.supplier %>
+</p>
+
+<%= link_to 'Edit', edit_cash_out_path(@cash_out) %> |
+<%= link_to 'Back', cash_outs_path %>

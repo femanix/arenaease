@@ -1,0 +1,73 @@
+<div class="col-md-12">
+  <div class="x_panel">
+    <div class="x_title">
+      <h1>Conta Corrente | Times      </h1>
+
+    </div>
+    <div class="x_content">
+      <p id="notice"><%= notice %></p>
+
+      <table class='table'>
+        <thead>
+          <tr>
+            <th>Team</th>
+            <th>Balance cents</th>
+            <th colspan="3">Ações</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @team_accounts.each do |team_account| %>
+            <tr>
+              <td><%= team_account.team.nome %></td>
+              <td><%= team_account.balance %></td>
+              <td>mensalidades em aberto</td>
+              <td><%= link_to 'Show', team_account %></td>
+              <td><%= link_to 'Edit', edit_team_account_path(team_account) %></td>
+              <td><%= link_to 'Destroy', team_account, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+
+      <br>
+
+        <%= link_to 'New Team Account', new_team_account_path %>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="contratarModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+        </div>
+        <div class="modal-body">
+          ...
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RECIBO -->
+
+  <div class="modal fade" id="reciboModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+        </div>
+        <div class="modal-body">
+          ...
+        </div>
+      </div>
+    </div>
+  </div>

@@ -1,0 +1,89 @@
+<%= stylesheet_link_tag 'mensalidades' %>
+<%= javascript_include_tag 'team_accounts' %>
+<div class="col-md-12">
+  <div class="x_panel">
+    <div class="x_title">
+      <h1>
+        Mensalidades -
+        <%= @team_account.team.nome %>
+        <h3 class="saldo">
+          <small>
+            Saldo:
+            <%= to_money @team_account.balance%>
+          </small>
+        </h3>
+      </h1>
+    </div>
+    <div class="x_content">
+      <p id="notice"><%= notice %></p>
+      <table id="mensalidades-table" class='table table-bordered table-striped table-hover'>
+        <thead>
+          <tr>
+            <th class='col-xs-1'>Vencimento</th>
+            <th class='col-xs-1'>Valor</th>
+            <th class='col-xs-1'>Status</th>
+            <th class='col-xs-1'>Data de Pagamento</th>
+            <th class='col-xs-1'>Saldo</th>
+            <th class="col-xs-1">Ações</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @mensalidades.each do |mensalidade| %>
+            <tr>
+              <th class='text-center'><%= mensalidade.vencimento.strftime("%d/%m/%Y") %></th>
+              <th class='text-center'><%= to_money mensalidade.value %></th>
+              <th class='text-center'><%= mensalidade.status %></th>
+              <th class='text-center'>
+                <% if mensalidade.data_pagamento.present? %>
+                    <%= link_to "#",  {remote:true , id: mensalidade.id, class:'btn btn-round btn-warning btn-xs mensalidade-history'} do %>
+                    <i class="fa fa-history"></i>
+                  <%end%>
+                <% end %>
+                <%= mensalidade.data_pagamento&.strftime('%d/%m/%Y') %>
+              </th>
+              <th class='text-center'><%= to_money mensalidade.saldo %></th>
+              <th class="actionsForm">
+                <% if mensalidade.saldo.zero? %>
+                  <%= link_to 'Emitir NFS-e', pagar_aluguel_form_path(mensalidade.id), {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#pagarModal', class: 'btn btn-round btn-primary btn-xs disabled'} %>
+                  <%= link_to estornar_mensalidade_path(mensalidade.id), class:'btn btn-round btn-danger btn-xs' do %>
+                    <i class="fa fa-trash-o"></i>
+                    Estornar
+                  <% end %>       
+                <% else%>
+                  <%= link_to 'Pagar', pagar_aluguel_form_path(mensalidade.id), {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#pagarModal', class: 'btn btn-round btn-success btn-xs'} %>
+                  <%= link_to 'Editar', edit_team_account_path(mensalidade.id), {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#pagarModal', class: 'btn btn-round btn-primary btn-xs'} %>
+                  <%= link_to mensalidade, method: :delete, data: { confirm: 'Tem certeza que quer excluir a mensalidade?' }, class:'btn btn-round btn-danger btn-xs' do %>
+                    <i class="fa fa-trash-o"></i>
+                    Excluir
+                  <% end %>
+                <% end %>
+              </th>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+      <div class="voltarTime">
+        <%= link_to 'Voltar', teams_path, class:'btn btn-lg btn-round btn-danger' %>
+      </div>
+    </div>
+
+
+  </div>
+</div>
+
+<div class="modal fade" id="pagarModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+    </div>
+  </div>
+</div>

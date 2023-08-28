@@ -1,0 +1,37 @@
+<%= form_with(model: itens_comanda, local: true) do |form| %>
+  <% if itens_comanda.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(itens_comanda.errors.count, "error") %> prohibited this itens_comanda from being saved:</h2>
+
+      <ul>
+      <% itens_comanda.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :comanda_id %>
+    <%= form.text_field :comanda_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :produto_id %>
+    <%= form.text_field :produto_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :quantidade %>
+    <%= form.number_field :quantidade %>
+  </div>
+
+  <div class="field">
+    <%= form.label :valor %>
+    <%= form.text_field :valor %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

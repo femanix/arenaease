@@ -1,0 +1,29 @@
+<%= form_with(model: mensalidade, local: true) do |form| %>
+
+  <fieldset class="fieldset-border">
+    <legend class="legend-border">Pagar mensalidade</legend>
+
+    <div class="pagamentoInfo">
+      <div class="field">
+        <%= form.label :vencimento %>
+        <%= form.date_field  :vencimento, class: 'form-control', required: true%>
+      </div>
+      <div class="field">
+        <%= form.label :data_pagamento %>
+        <%= form.date_field  :data_pagamento, class: 'form-control disabled' %>
+      </div>
+      <div class="field formValor">
+        <%= form.label :value %>
+        <div class="input-group">
+          <span class="input-group-addon">R$</span>
+          <%= form.text_field :value, :onkeyup =>'maskPrice(this)', class: 'form-control' %>
+        </div>
+      </div>
+      <div class="field ">
+      </div>
+    </div>
+    <div class="botaoPagar">
+      <%= form.submit "Atualizar mensalidade" , class: 'btn btn-round btn-success' %>
+    </div>
+  </fieldset>
+<% end %>

@@ -1,0 +1,31 @@
+<div class="col-md-12">
+  <div class="x_panel">
+    <div class="x_title">
+      <h1>Saídas de Estoque</h1>
+    </div>
+    <div class="x_content">
+      <table class="table table-striped table-bordered no-footer dtr-inline collapsed">
+        <thead>
+          <tr>
+            <th>Data</th>
+            <th>Produto</th>
+            <th>Quantidade</th>
+            <th>Usuário</th>
+            <th>Origem</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @estoque_outs.each do |estoque_out| %>
+            <tr>
+              <td><%= date_format(estoque_out.created_at) %></td>
+              <td><%= estoque_out.produto.descricao %></td>
+              <td><%= estoque_out.quantidade %></td>
+              <td><%= estoque_out.user.user_name %></td>
+              <td><%= estoque_out.origem %></td></tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,3 @@
+$("#editModal").find(".modal-body").html("<%= j render(:partial => 'form', :locals => {:cash_in => @cash_in}) %>");
+$("#editModal").find(".modal-title").html("Criar nova receita");
+$("#editModal").modal('show');

@@ -1,8 +1,8 @@
 # config valid for current version and patch releases of Capistrano
-lock "~> 3.17.1"
+lock '~> 3.17.1'
 
-set :application, "urupaarena"
-set :repo_url, "git@github.com:femanix/urupa-arena.git"
+set :application, 'arenaease'
+set :repo_url, 'git@github.com:femanix/arenaease.git'
 
 set :default_branch, 'main'
 
@@ -11,7 +11,7 @@ set :default_branch, 'main'
 set :branch, ENV['BRANCH'] || fetch(:default_branch)
 
 # Default deploy_to directory is /var/www/my_app_name
-set :deploy_to, "/var/www/urupaarena"
+set :deploy_to, '/var/www/arenaease'
 
 # Default value for :format is :airbrussh.
 set :format, :airbrussh
@@ -25,10 +25,11 @@ set :log_level, :debug
 # set :pty, true
 
 # Default value for :linked_files is []
-append :linked_files, "config/database.yml", 'config/master.key'
+append :linked_files, 'config/database.yml', 'config/master.key'
 
 # Default value for linked_dirs is []
-append :linked_dirs, "log", "tmp/pids", "tmp/cache", "tmp/sockets", "tmp/webpacker", "public/system", "vendor", "storage"
+append :linked_dirs, 'log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'tmp/webpacker', 'public/system', 'vendor',
+       'storage'
 
 # Default value for default_env is {}
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
@@ -45,7 +46,8 @@ set :keep_releases, 5
 set :rbenv_type, :user # or :system, depends on your rbenv setup
 set :rbenv_ruby, '3.1.2'
 
-set :rbenv_prefix, "RBENV_ROOT=#{fetch(:rbenv_path)} RBENV_VERSION=#{fetch(:rbenv_ruby)} #{fetch(:rbenv_path)}/bin/rbenv exec"
+set :rbenv_prefix,
+    "RBENV_ROOT=#{fetch(:rbenv_path)} RBENV_VERSION=#{fetch(:rbenv_ruby)} #{fetch(:rbenv_path)}/bin/rbenv exec"
 # set :rbenv_map_bins, %w{rake gem bundle ruby rails}
 set :rbenv_roles, :all # default value
 
@@ -62,10 +64,10 @@ namespace :test do
   desc 'Deploy to the test environment'
   task :deploy do
     on roles(:app) do
-      set :deploy_to, '/var/www/test.urupaarena'
+      set :deploy_to, '/var/www/test.arenaease'
       set :rails_env, 'test'
       set :current_settings, {
-        unicorn_worker_processes: 2,
+        unicorn_worker_processes: 2
         # outras configurações específicas para o ambiente de teste
       }
       invoke 'deploy'

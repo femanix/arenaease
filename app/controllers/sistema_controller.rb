@@ -1,7 +1,7 @@
 class SistemaController < ApplicationController
   layout 'admin'
-  #before_action :authenticate_user!
-  #authorize_resource
+  before_action :authenticate_user!
+  authorize_resource
   include ApplicationHelper
   include SistemaHelper
 
